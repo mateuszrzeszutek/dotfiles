@@ -1,0 +1,38 @@
+# vim: ft=cfg
+
+# keep the personal details in a separate file
+[include]
+path = .gitconfig.personal
+
+[credential]
+helper = cache
+
+[alias]
+lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+lf = ls-files
+st = status
+fe = fetch
+re = rebase
+me = merge
+ci = commit
+co = checkout
+br = branch
+cp = cherrypick
+
+sf = svn fetch
+sr = svn rebase
+sp = svn dcommit
+
+tag = tag -s
+
+[svn]
+rmdir = true
+
+[push]
+default = simple
+
+[color]
+ui = true
+
+[commit]
+gpgsign = true
