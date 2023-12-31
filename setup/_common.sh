@@ -2,12 +2,6 @@
 
 source "$BASEDIR/config/shell/shell-functions.sh"
 
-# Variables
-_PACKAGE_NAME=
-_MACOS_PACKAGE_NAME=
-_MACOS_CASK=
-
-# Functions
 install_package() {
   install_on_macos "$@"
   install_on_linux "$@"
