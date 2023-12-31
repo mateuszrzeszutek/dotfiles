@@ -11,8 +11,8 @@ install_ranger() {
 configure_ranger() {
   echo_yellow '>>> Configuring ranger ...'
   mkdir -p "$HOME/.config/ranger"
-  ln -fs "$CFGROOR/config/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
-  ln -fs "$CFGROOR/config/ranger/rifle.conf" "$HOME/.config/ranger/rifle.conf"
+  ln -fs "$BASEDIR/config/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
+  ln -fs "$BASEDIR/config/ranger/rifle.conf" "$HOME/.config/ranger/rifle.conf"
 }
 
 install_ranger
