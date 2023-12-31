@@ -77,7 +77,7 @@ vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 
 -- windows
-vim.keymap.set('n', '<c-h>', '<c-Wh')
+vim.keymap.set('n', '<c-h>', '<c-W>h')
 vim.keymap.set('n', '<c-j>', '<c-W>j')
 vim.keymap.set('n', '<c-k>', '<c-W>k')
 vim.keymap.set('n', '<c-l>', '<c-W>l')

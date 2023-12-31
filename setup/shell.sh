@@ -32,13 +32,7 @@ configure_zsh() {
 
     echo_yellow '>>> Downloading Oh-My-Zsh ...'
     pushd "$HOME"
-    if (is_executable curl)
-    then
-      sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    elif (is_executable wget)
-    then
-      sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-    fi
+    run_from_url "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
     popd
   fi
 

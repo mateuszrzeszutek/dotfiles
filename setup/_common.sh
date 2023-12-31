@@ -12,7 +12,7 @@ install_on_macos() {
   then
     if (is_not_executable brew)
     then
-      bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      run_from_url "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
       brew analytics off
     fi
 
@@ -24,6 +24,17 @@ install_on_linux() {
   if (is_linux)
   then
     sudo apt-get install -y "$@"
+  fi
+}
+
+run_from_url() {
+  local url="$1"
+  if (is_executable curl)
+  then
+    bash -c "$(curl -fsSL "$url")"
+  elif (is_executable wget)
+  then
+    bash -c "$(wget "$url" -O -)"
   fi
 }
 
