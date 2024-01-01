@@ -15,15 +15,22 @@ done
 
 if [[ $# -lt 1 ]]
 then
-  echo "List of tasks:"
+  echo "Usage $(basename "$0") [task] ..."
   echo
+  echo "List of tasks:"
   for task in "${available_tasks[@]}"
   do
     echo -n "- "
-    font_yellow
-    echo "${task%.sh}"
+    font_blue
+    echo "$task"
     font_normal
   done
+  echo
+  echo -n "Alternatively, use special task '"
+  font_blue
+  echo -n "all"
+  font_normal
+  echo "' to run all of them."
   exit 0
 fi
 

@@ -3,8 +3,9 @@
 source "$BASEDIR/setup/_common.sh"
 
 install_nvim() {
-  echo_yellow ">>> Installing nvim ..."
-  install_package neovim neovim-qt
+  echo_yellow ">>> Installing nvim and dependencies ..."
+  # ripgrep is a fast, alternate grep implementation that's used in the nvim fuzzy finder
+  install_package neovim neovim-qt ripgrep
 }
 
 configure_nvim() {
