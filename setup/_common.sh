@@ -13,6 +13,8 @@ install_on_macos() {
     if (is_not_executable brew)
     then
       run_from_url "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+      # make sure brew is on the PATH
+      export PATH="$PATH:/opt/homebrew/bin"
       brew analytics off
     fi
 
