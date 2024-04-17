@@ -17,7 +17,7 @@ me = merge
 ci = commit
 co = checkout
 br = branch
-cp = cherrypick
+cp = cherry-pick
 
 sf = svn fetch
 sr = svn rebase

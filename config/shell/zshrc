@@ -18,11 +18,16 @@ source $HOME/.shell-functions
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git vi-mode mvn gradle extract sdk)
 if (is_macos)
 then
-  plugins=(git vi-mode mvn macos brew)
-else
-  plugins=(git vi-mode mvn debian)
+  plugins+=(macos brew iterm2)
+elif (is_executable apt-get)
+then
+  plugins+=(debian)
+elif (is_executable pacman)
+then
+  plugins+=(archlinux)
 fi
 
 source $ZSH/oh-my-zsh.sh

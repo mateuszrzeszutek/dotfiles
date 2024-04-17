@@ -25,7 +25,12 @@ install_on_macos() {
 install_on_linux() {
   if (is_linux)
   then
-    sudo apt-get install -y "$@"
+    if (is_executable apt-get)
+    then
+      sudo apt-get install -y "$@"
+    elif (is_executable pacman)
+      sudo pacman --noconfirm -Sy "$@"
+    fi
   fi
 }
 
