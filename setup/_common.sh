@@ -29,6 +29,7 @@ install_on_linux() {
     then
       sudo apt-get install -y "$@"
     elif (is_executable pacman)
+    then
       sudo pacman --noconfirm -Sy "$@"
     fi
   fi
@@ -36,12 +37,13 @@ install_on_linux() {
 
 run_from_url() {
   local url="$1"
+  shift
   if (is_executable curl)
   then
-    bash -c "$(curl -fsSL "$url")"
+    bash -c "$(curl -fsSL "$url")" -- "$@"
   elif (is_executable wget)
   then
-    bash -c "$(wget "$url" -O -)"
+    bash -c "$(wget "$url" -O -)" -- "$@"
   fi
 }
 

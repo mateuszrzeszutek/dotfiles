@@ -13,12 +13,16 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 require('lazy').setup({
+  -- appearance
   {'folke/tokyonight.nvim'},
   {'nvim-lualine/lualine.nvim', dependencies = {'nvim-tree/nvim-web-devicons'}},
   {'akinsho/bufferline.nvim'},
   {"lukas-reineke/indent-blankline.nvim"},
+
   {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
   {'windwp/nvim-autopairs'},
+
+  -- fuzzy finder
   {
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
@@ -27,6 +31,19 @@ require('lazy').setup({
       {'nvim-telescope/telescope-fzf-native.nvim', build = 'make'},
     },
   },
+
+  -- LSP support
+  {'williamboman/mason.nvim'},
+  {'williamboman/mason-lspconfig.nvim'},
+  {'neovim/nvim-lspconfig'},
+
+  -- completion
+  {'hrsh7th/nvim-cmp'},
+  {'hrsh7th/cmp-nvim-lsp'},
+  -- snippets -- required for cmp
+  {'hrsh7th/vim-vsnip'},
+  {'hrsh7th/cmp-vsnip'},
+
   -- TODO consider more plugins
   -- - nvim-tree -- file manager
 })
@@ -75,6 +92,7 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 
 -- completion
+vim.opt.completeopt = {'menuone', 'noselect', 'noinsert'}
 vim.opt.wildmenu = true
 
 vim.opt.wildignore = table.concat({
@@ -148,7 +166,7 @@ require('nvim-treesitter.configs').setup({
   ensure_installed = {
     -- these must always be installed
     "c", "lua", "vim", "vimdoc", "query",
-    "python",
+    "python", "rust", "toml"
   },
   highlight = {
     enable = true
@@ -162,6 +180,108 @@ require('nvim-treesitter.configs').setup({
 require('nvim-autopairs').setup()
 
 -- fuzzy finder
-require('telescope').setup()
-require('telescope').load_extension('fzf')
+local telescope = require('telescope')
+telescope.setup()
+telescope.load_extension('fzf')
+
+-- language servers
+require('mason').setup()
+require('mason-lspconfig').setup({
+    ensure_installed = { 'lua_ls', 'rust_analyzer' },
+})
+
+local lspconfig = require('lspconfig')
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+-- lua LS for vim config files
+lspconfig.lua_ls.setup({
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  }
+})
+-- rust lsp
+lspconfig.rust_analyzer.setup({
+  capabilities = capabilities,
+})
+
+-- lsp keybinds
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(ev)
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+
+    vim.keymap.set('n', '<leader>cd', vim.diagnostic.goto_next, opts)
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+
+    vim.keymap.set('n', '<leader>fr', ':Telescope lsp_references<cr>', opts)
+    vim.keymap.set('n', '<leader>fs', ':Telescope lsp_document_symbols<cr>', opts)
+
+    vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, opts)
+  end,
+})
+
+-- rounded borders in lsp hover windows
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+  vim.lsp.handlers.hover,
+  {border = 'rounded'}
+)
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
+  vim.lsp.handlers.signature_help,
+  {border = 'rounded'}
+)
+
+-- diagnostic window
+vim.diagnostic.config({
+    float = {
+        border = 'rounded',
+    },
+})
+
+-- completion
+local cmp = require('cmp')
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+    ['<Tab>'] = cmp.mapping.select_next_item(),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<esc>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  }),
+  sources = cmp.config.sources(
+    {
+      { name = 'nvim_lsp', keyword_length = 2 },
+      { name = 'vsnip' },
+    },
+    {
+      { name = 'buffer' },
+    }
+  )
+})
 
