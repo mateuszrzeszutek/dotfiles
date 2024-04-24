@@ -187,7 +187,7 @@ telescope.load_extension('fzf')
 -- language servers
 require('mason').setup()
 require('mason-lspconfig').setup({
-    ensure_installed = { 'lua_ls', 'rust_analyzer' },
+  ensure_installed = { 'lua_ls', 'rust_analyzer' },
 })
 
 local lspconfig = require('lspconfig')
@@ -211,6 +211,19 @@ lspconfig.lua_ls.setup({
 -- rust lsp
 lspconfig.rust_analyzer.setup({
   capabilities = capabilities,
+})
+
+-- language specific settings
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = {
+    "*.rs",
+    "*.py"
+  },
+  callback = function ()
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.tabstop = 4
+    vim.opt_local.softtabstop = 4
+  end
 })
 
 -- lsp keybinds
@@ -248,9 +261,9 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 
 -- diagnostic window
 vim.diagnostic.config({
-    float = {
-        border = 'rounded',
-    },
+  float = {
+    border = 'rounded',
+  },
 })
 
 -- completion
