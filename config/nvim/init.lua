@@ -31,6 +31,10 @@ require('lazy').setup({
       {'nvim-telescope/telescope-fzf-native.nvim', build = 'make'},
     },
   },
+  { "nvim-telescope/telescope-file-browser.nvim" },
+
+  -- neorg
+  {'nvim-neorg/neorg', lazy = false, build = ':Neorg sync-parsers'},
 
   -- LSP support
   {'williamboman/mason.nvim'},
@@ -43,9 +47,6 @@ require('lazy').setup({
   -- snippets -- required for cmp
   {'hrsh7th/vim-vsnip'},
   {'hrsh7th/cmp-vsnip'},
-
-  -- TODO consider more plugins
-  -- - nvim-tree -- file manager
 })
 
 -- general
@@ -102,22 +103,19 @@ vim.opt.wildignore = table.concat({
   "*.pyc"
 }, ',')
 
--- netrw -- built-in file explorer
-vim.g.netrw_keepdir = 0
-vim.g.netrw_winsize = 30
-vim.g.netrw_localcopydircmd = 'cp -r'
-
 -- keys
 vim.g.mapleader = ' '
+vim.g.maplocalleader = ','
 
 vim.keymap.set('n', '<esc>', '<esc>:noh<cr>')
 
 vim.keymap.set('n', '<leader>q', ':q<cr>')
-vim.keymap.set('n', '<leader>t', ':Lexplore<cr>')
 
 vim.keymap.set('n', '<leader>fw', ':w<cr>')
 vim.keymap.set('n', '<leader>ff', ':Telescope find_files<cr>')
 vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<cr>')
+vim.keymap.set('n', '<leader>fb', ':Telescope file_browser path=%:p:h select_buffer=true<CR>')
+
 
 vim.keymap.set('n', '<leader>sv', ':source $MYVIMRC<cr>')
 
@@ -181,8 +179,30 @@ require('nvim-autopairs').setup()
 
 -- fuzzy finder
 local telescope = require('telescope')
-telescope.setup()
+telescope.setup({
+  extensions = {
+    file_browser = {
+      hijack_netrw = true,
+    },
+  },
+})
 telescope.load_extension('fzf')
+
+-- neorg
+require("neorg").setup({
+  load = {
+    ["core.defaults"] = {},
+    ["core.concealer"] = {},
+    ["core.dirman"] = {
+      config = {
+        workspaces = {
+          main = "~/Org",
+        },
+        default_workspace = "main",
+      },
+    },
+  }
+})
 
 -- language servers
 require('mason').setup()
