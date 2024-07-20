@@ -73,9 +73,9 @@ vim.opt.mouse = "a"
 
 local os = vim.loop.os_uname().sysname
 if os == "Darwin" then
-  vim.opt.guifont = "Monaco:h14"
+  vim.opt.guifont = "DejaVuSansM Nerd Font Mono:h14"
 elseif os == "Linux" then
-  vim.opt.guifont = "DejaVu Sans Mono 14"
+  vim.opt.guifont = "DejaVuSansM Nerd Font Mono 14"
 end
 
 -- line breaks
@@ -141,7 +141,7 @@ vim.keymap.set('n', '<s-tab>', ':BufferLineCyclePrev<cr>')
 -- bottom status line
 require('lualine').setup({
   options = {
-    icons_enabled = false,
+    icons_enabled = true,
     component_separators = '|',
     section_separators = '',
   }
@@ -151,7 +151,7 @@ require('lualine').setup({
 require('bufferline').setup({
   options = {
     numbers = "buffer_id",
-    show_buffer_icons = false,
+    show_buffer_icons = true,
     buffer_close_icon = '✕'
   }
 })

@@ -28,10 +28,15 @@ install_on_linux() {
     if (is_executable apt-get)
     then
       sudo apt-get install -y "$@"
-    elif (is_executable pacman)
-    then
-      sudo pacman --noconfirm -Sy "$@"
     fi
+    install_on_arch "$@"
+  fi
+}
+
+install_on_arch() {
+  if (is_executable pacman)
+  then
+    sudo pacman --noconfirm -Sy "$@"
   fi
 }
 

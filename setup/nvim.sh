@@ -8,6 +8,12 @@ install_nvim() {
   install_package neovim neovim-qt ripgrep luarocks
 }
 
+install_fonts() {
+  echo ">>> Installing modded DejaVu Sans Mono fonts ..."
+  install_on_macos font-dejavu-sans-mono-nerd-font
+  install_on_arch ttf-dejavu-nerd
+}
+
 configure_nvim() {
   echo_yellow ">>> Configuring nvim ..."
   mkdir -p "$HOME/.config/nvim"
@@ -15,5 +21,6 @@ configure_nvim() {
 }
 
 install_nvim
+install_fonts
 configure_nvim
 
