@@ -4,9 +4,6 @@
 [include]
 path = .gitconfig.personal
 
-[credential]
-helper = cache
-
 [alias]
 lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 lf = ls-files
@@ -25,14 +22,54 @@ sp = svn dcommit
 
 tag = tag -s
 
-[svn]
-rmdir = true
-
-[push]
-default = simple
+[branch]
+sort = -committerdate
 
 [color]
 ui = true
 
-[commit]
-gpgsign = true
+[column]
+ui = auto
+
+# depends on the workstation, really
+#[commit]
+#gpgsign = true
+
+[credential]
+helper = cache
+
+[diff]
+algorithm = histogram
+colorMoved = plain
+mnemonicPrefix = true
+renames = true
+
+[fetch]
+all = true
+prune = true
+pruneTags = true
+
+[help]
+autocorrect = prompt
+
+[pull]
+rebase = true
+
+[push]
+autoSetupRemote = true
+default = simple
+
+[rebase]
+autoSquash = true
+autoStash = true
+updateRefs = true
+
+[rerere]
+enabled = true
+autoupdate = true
+
+[svn]
+rmdir = true
+
+[tag]
+sort = version:refname
