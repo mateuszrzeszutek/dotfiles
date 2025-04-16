@@ -12,6 +12,8 @@ install_fonts() {
   echo ">>> Installing modded DejaVu Sans Mono fonts ..."
   install_on_macos font-dejavu-sans-mono-nerd-font
   install_on_arch ttf-dejavu-nerd
+  # TODO https://github.com/ryanoasis/nerd-fonts?tab=readme-ov-file#option-7-install-script
+  # # TODO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/DejaVuSansMono.zip
 }
 
 configure_nvim() {

@@ -112,7 +112,7 @@ vim.keymap.set('n', '<esc>', '<esc>:noh<cr>')
 vim.keymap.set('n', '<leader>q', ':q<cr>')
 
 vim.keymap.set('n', '<leader>fw', ':w<cr>')
-vim.keymap.set('n', '<leader>ff', ':Telescope find_files<cr>')
+vim.keymap.set('n', '<leader>ff', ':Telescope git_files<cr>')
 vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<cr>')
 vim.keymap.set('n', '<leader>fb', ':Telescope file_browser path=%:p:h select_buffer=true<CR>')
 

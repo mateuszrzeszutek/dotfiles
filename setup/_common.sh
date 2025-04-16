@@ -25,10 +25,7 @@ install_on_macos() {
 install_on_linux() {
   if (is_linux)
   then
-    if (is_executable apt-get)
-    then
-      sudo apt-get install -y "$@"
-    fi
+    install_on_ubuntu "$@"
     install_on_arch "$@"
   fi
 }
@@ -37,6 +34,13 @@ install_on_arch() {
   if (is_executable pacman)
   then
     sudo pacman --noconfirm -Sy "$@"
+  fi
+}
+
+install_on_ubuntu() {
+  if (is_executable apt-get)
+  then
+    sudo apt-get install -y "$@"
   fi
 }
 

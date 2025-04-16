@@ -2,7 +2,7 @@
 
 source "$BASEDIR/setup/_common.sh"
 
-configure_git () {
+configure_git() {
   echo_yellow ">>> Configuring git ..."
   ln -fs "$BASEDIR/config/git/gitconfig" "$HOME/.gitconfig"
 }
