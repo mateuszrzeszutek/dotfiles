@@ -15,17 +15,28 @@ HIST_STAMPS="yyyy-mm-dd"
 # Load additional functions first
 source $HOME/.shell-functions
 
+if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]
+then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git vi-mode mvn gradle extract sdk)
+plugins=(git vi-mode mvn gradle extract sdk command-not-found)
 if (is_macos)
 then
-  plugins+=(macos brew iterm2)
-elif (is_executable apt-get)
+  plugins+=(macos)
+fi
+if (is_executable brew)
 then
-  plugins+=(debian)
-elif (is_executable pacman)
+  plugins+=(brew)
+fi
+if (is_executable apt-get)
+then
+  plugins+=(ubuntu)
+fi
+if (is_executable pacman)
 then
   plugins+=(archlinux)
 fi

@@ -117,3 +117,24 @@ function y() {
   fi
   rm -f -- "$tmp"
 }
+
+function sysupdate() {
+  if (is_executable brew)
+  then
+    brew update && brew outdated && brew upgrade
+  fi
+  if (is_executable apt-get)
+  then
+    sudo apt-get -y update
+    sudo apt-get -y upgrade
+    sudo apt-get -y dist-upgrade
+  fi
+  if (is_executable flatpak)
+  then
+    flatpak update -y
+  fi
+  if (is_executable pacman)
+  then
+    sudo pacman --noconfirm -Syu
+  fi
+}

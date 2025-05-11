@@ -10,16 +10,29 @@ install_package() {
 install_on_macos() {
   if (is_macos)
   then
-    if (is_not_executable brew)
+    install_with_brew "$@"
+  fi
+}
+
+install_with_brew() {
+  if (is_not_executable brew)
+  then
+    install_on_linux build-essential procps curl file git
+
+    run_from_url "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+
+    # make sure brew is on the PATH
+    if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]
     then
-      run_from_url "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
-      # make sure brew is on the PATH
+      eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    else
       export PATH="$PATH:/opt/homebrew/bin"
-      brew analytics off
     fi
 
-    brew install "$@"
+    brew analytics off
   fi
+
+  brew install "$@"
 }
 
 install_on_linux() {
