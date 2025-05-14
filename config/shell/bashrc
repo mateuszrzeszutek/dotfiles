@@ -34,9 +34,6 @@ source $HOME/.shell-functions
 # Aliases
 source $HOME/.shell-aliases
 
-# Path section
-source $HOME/.shell-path
-
 # Environment variables
 source $HOME/.shell-env
 

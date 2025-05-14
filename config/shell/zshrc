@@ -34,7 +34,7 @@ then
 fi
 if (is_executable apt-get)
 then
-  plugins+=(ubuntu)
+  plugins+=(debian)
 fi
 if (is_executable pacman)
 then
@@ -54,9 +54,6 @@ setopt appendhistory
 
 # don't beep
 unsetopt beep
-
-# PATH settings
-source $HOME/.shell-path
 
 # Aliases
 source $HOME/.shell-aliases
