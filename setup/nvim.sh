@@ -10,10 +10,19 @@ install_nvim() {
 
 install_fonts() {
   echo ">>> Installing modded DejaVu Sans Mono fonts ..."
-  install_on_macos font-dejavu-sans-mono-nerd-font
-  install_on_arch ttf-dejavu-nerd
-  # TODO https://github.com/ryanoasis/nerd-fonts?tab=readme-ov-file#option-7-install-script
-  # # TODO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/DejaVuSansMono.zip
+  if (is_macos)
+  then
+    install_with_brew font-dejavu-sans-mono-nerd-font
+  else
+    local temp_dir="$(mktemp -d)"
+    pushd "$temp_dir"
+    git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
+    pushd nerd-fonts
+    ./install.sh DejaVuSansMono
+    popd
+    popd
+    rm -rf "$temp_dir"
+  fi
 }
 
 configure_nvim() {
