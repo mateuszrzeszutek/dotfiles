@@ -121,6 +121,7 @@ function y() {
 function sysupdate() {
   if (is_executable brew)
   then
+    ulimit -Sn 65536 #need more file descriptors for brew
     brew update && brew outdated && brew upgrade
   fi
   if (is_executable apt-get)

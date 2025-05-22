@@ -4,7 +4,6 @@ source "$BASEDIR/setup/_common.sh"
 
 install_nvim() {
   echo_yellow ">>> Installing nvim and dependencies ..."
-  # ripgrep is a fast, alternate grep implementation that's used in the nvim fuzzy finder
   install_with_brew neovim neovim-qt ripgrep luarocks
 }
 
@@ -13,15 +12,19 @@ install_fonts() {
   if (is_macos)
   then
     install_with_brew font-dejavu-sans-mono-nerd-font
-  else
-    local temp_dir="$(mktemp -d)"
-    pushd "$temp_dir"
-    git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
-    pushd nerd-fonts
-    ./install.sh DejaVuSansMono
-    popd
-    popd
-    rm -rf "$temp_dir"
+  elif (is_executable fc-list)
+  then
+    if (! (fc-list | grep DejaVuSansMNerd >/dev/null))
+    then
+      local temp_dir="$(mktemp -d)"
+      pushd "$temp_dir"
+      git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
+      pushd nerd-fonts
+      ./install.sh DejaVuSansMono
+      popd
+      popd
+      rm -rf "$temp_dir"
+    fi
   fi
 }
 

@@ -32,7 +32,20 @@ install_with_brew() {
     brew analytics off
   fi
 
+  ulimit -Sn 65536 #need more file descriptors for brew
   brew install "$@"
+}
+
+install_with_flatpak() {
+  if (is_linux)
+  then
+    if (is_not_executable flatpak)
+    then
+      install_on_linux flatpak
+      flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+    fi
+    flatpak install "$@"
+  fi
 }
 
 install_on_linux() {
