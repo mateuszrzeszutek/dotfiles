@@ -2,6 +2,8 @@
 
 source "$BASEDIR/config/shell/shell-functions.sh"
 
+# TODO: refactor naming of these functions
+
 install_package() {
   install_on_macos "$@"
   install_on_linux "$@"
