@@ -138,4 +138,8 @@ function sysupdate() {
   then
     sudo pacman --noconfirm -Syu
   fi
+  if (is_executable ya)
+  then
+    ya pkg upgrade
+  fi
 }

@@ -10,10 +10,10 @@ install_yazi() {
 
 install_yazi_plugins() {
   echo_yellow '>>> Installing yazi addons ...'
-  ya pack -a BennyOe/tokyo-night
-  ya pack -a yazi-rs/plugins:full-border
-  ya pack -a yazi-rs/plugins:git
-  ya pack -a yazi-rs/plugins:smart-enter
+  ya pkg -a BennyOe/tokyo-night
+  ya pkg -a yazi-rs/plugins:full-border
+  ya pkg -a yazi-rs/plugins:git
+  ya pkg -a yazi-rs/plugins:smart-enter
 }
 
 configure_yazi() {

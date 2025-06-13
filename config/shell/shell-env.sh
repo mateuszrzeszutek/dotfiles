@@ -6,6 +6,14 @@ then
   . "$HOME/.cargo/env"
 fi
 
+# Fix GPG on MacOS
+if [[ -z "$GPG_TTY" ]]
+then
+  export GPG_TTY="$(tty)"
+fi
+
+## PATH
+
 export PATH="$PATH:$HOME/.local/bin"
 
 # Void editor on MacOS
