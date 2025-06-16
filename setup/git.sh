@@ -12,5 +12,6 @@ configure_git() {
   ln -fs "$BASEDIR/config/git/gitconfig" "$HOME/.gitconfig"
 }
 
+install_gpg
 configure_git
 

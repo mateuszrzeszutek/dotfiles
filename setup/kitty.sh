@@ -4,7 +4,10 @@ source "$BASEDIR/setup/_common.sh"
 
 install_kitty() {
   echo_yellow ">>> Installing kitty ..."
-  if (is_not_executable kitty)
+  if (is_macos)
+  then
+    install_on_macos kitty
+  elif (is_not_executable kitty)
   then
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin \
       launch=n

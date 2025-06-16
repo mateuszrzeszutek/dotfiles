@@ -12,12 +12,12 @@ COMPLETION_WAITING_DOTS="true"
 # yyyy-mm-dd
 HIST_STAMPS="yyyy-mm-dd"
 
-# Load additional functions first
+# Customizations
 source $HOME/.shell-functions
-
-if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]
-then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+source $HOME/.shell-aliases
+source $HOME/.shell-env
+if [[ -f $HOME/.shell-machine-specific ]]; then
+  source $HOME/.shell-machine-specific
 fi
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
@@ -54,17 +54,6 @@ setopt appendhistory
 
 # don't beep
 unsetopt beep
-
-# Aliases
-source $HOME/.shell-aliases
-
-# Environment variables
-source $HOME/.shell-env
-
-# Machine specific settings
-if [[ -f $HOME/.shell-machine-specific ]]; then
-  source $HOME/.shell-machine-specific
-fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="${HOME}/.sdkman"
