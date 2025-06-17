@@ -4,14 +4,13 @@ source "$BASEDIR/setup/_common.sh"
 
 install_void() {
   echo_yellow ">>> Installing Void editor ..."
-  install_on_macos void
+  is_macos && install__brew void
   # TODO: install on linux -- brew or something else?
 }
 
 install_void_extensions() {
   local extensions=(cedricverlinden.cursor-dark
     fwcd.kotlin
-    monokai.theme-monokai-pro-vscode
     redhat.java
     tamasfe.even-better-toml
     visualstudioexptteam.intellicode-api-usage-examples

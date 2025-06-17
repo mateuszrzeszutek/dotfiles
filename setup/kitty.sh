@@ -6,11 +6,10 @@ install_kitty() {
   echo_yellow ">>> Installing kitty ..."
   if (is_macos)
   then
-    install_on_macos kitty
+    install__brew kitty
   elif (is_not_executable kitty)
   then
-    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin \
-      launch=n
+    install__from_url "https://sw.kovidgoyal.net/kitty/installer.sh" launch=n
   fi
 }
 

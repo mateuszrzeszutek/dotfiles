@@ -3,10 +3,10 @@
 source "$BASEDIR/setup/_common.sh"
 
 install_sdkman() {
-  if (is_not_executable sdk)
+  if [[ ! -d "$HOME/.sdkman" ]]
   then
     echo_yellow ">>> Installing sdkman ..."
-    run_from_url "https://get.sdkman.io"
+    install__from_url "https://get.sdkman.io"
   fi
 }
 

@@ -4,7 +4,7 @@ source "$BASEDIR/setup/_common.sh"
 
 install_gpg() {
   echo_yellow ">>> Installing gpg ..."
-  install_on_macos gpg
+  is_macos && install__brew gnupg
 }
 
 configure_git() {

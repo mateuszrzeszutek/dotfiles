@@ -4,7 +4,7 @@ source "$BASEDIR/setup/_common.sh"
 
 install_yazi() {
   echo_yellow ">>> Installing yazi ..."
-  install_with_brew yazi ffmpeg 7zip jq poppler fd ripgrep fzf zoxide imagemagick
+  install__brew yazi ffmpeg 7zip jq poppler fd ripgrep fzf zoxide imagemagick
   mkdir -p "$HOME/.config/yazi"
 }
 

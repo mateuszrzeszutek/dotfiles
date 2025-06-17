@@ -6,7 +6,7 @@ install_rustup() {
   if (is_not_executable rustup)
   then
     echo_yellow ">>> Installing rustup ..."
-    run_from_url "https://sh.rustup.rs" --no-modify-path
+    install__from_url "https://sh.rustup.rs" --no-modify-path
   fi
 }
 

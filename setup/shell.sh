@@ -6,7 +6,7 @@ install_zsh() {
   if (is_linux)
   then
     echo_yellow ">>> Installing zsh ..."
-    install_on_linux zsh
+    install__apt zsh
     echo_yellow ">>> Setting zsh as default shell ..."
     chsh -s "$(which zsh)"
   fi
@@ -14,7 +14,6 @@ install_zsh() {
 
 configure_common_shell() {
   echo_yellow ">>> Configuring common shell settings ..."
-  ln -fs "$BASEDIR/config/shell/shell-path.sh" "$HOME/.shell-path"
   ln -fs "$BASEDIR/config/shell/shell-aliases.sh" "$HOME/.shell-aliases"
   ln -fs "$BASEDIR/config/shell/shell-env.sh" "$HOME/.shell-env"
   ln -fs "$BASEDIR/config/shell/shell-functions.sh" "$HOME/.shell-functions"

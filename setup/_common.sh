@@ -2,24 +2,14 @@
 
 source "$BASEDIR/config/shell/shell-functions.sh"
 
-# TODO: refactor naming of these functions
-
-install_package() {
-  install_on_macos "$@"
-  install_on_linux "$@"
-}
-
-install_on_macos() {
-  if (is_macos)
-  then
-    install_with_brew "$@"
-  fi
-}
-
-install_with_brew() {
+install__brew() {
   if (is_not_executable brew)
   then
-    install_on_linux build-essential procps curl file git
+    echo_yellow ">>> Installing homebrew ..."
+    if (is_linux)
+    then
+      install__apt build-essential procps curl file git
+    fi
 
     run_from_url "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
 
@@ -38,41 +28,27 @@ install_with_brew() {
   brew install "$@"
 }
 
-install_with_flatpak() {
+install__flatpak() {
   if (is_linux)
   then
+    echo_yellow ">>> Installing flatpak ..."
     if (is_not_executable flatpak)
     then
-      install_on_linux flatpak
+      install__apt flatpak
       flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
     fi
     flatpak install "$@"
   fi
 }
 
-install_on_linux() {
-  if (is_linux)
-  then
-    install_on_ubuntu "$@"
-    install_on_arch "$@"
-  fi
-}
-
-install_on_arch() {
-  if (is_executable pacman)
-  then
-    sudo pacman --noconfirm -Sy "$@"
-  fi
-}
-
-install_on_ubuntu() {
+install__apt() {
   if (is_executable apt-get)
   then
     sudo apt-get install -y "$@"
   fi
 }
 
-run_from_url() {
+install__from_url() {
   local url="$1"
   shift
   if (is_executable curl)

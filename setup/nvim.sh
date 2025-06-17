@@ -4,14 +4,14 @@ source "$BASEDIR/setup/_common.sh"
 
 install_nvim() {
   echo_yellow ">>> Installing nvim and dependencies ..."
-  install_with_brew neovim neovim-qt ripgrep luarocks
+  install__brew neovim neovim-qt ripgrep luarocks
 }
 
 install_fonts() {
   echo ">>> Installing modded DejaVu Sans Mono fonts ..."
   if (is_macos)
   then
-    install_with_brew font-dejavu-sans-mono-nerd-font
+    install__brew font-dejavu-sans-mono-nerd-font
   elif (is_executable fc-list)
   then
     if (! (fc-list | grep DejaVuSansMNerd >/dev/null))
