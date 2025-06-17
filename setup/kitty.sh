@@ -4,13 +4,10 @@ source "$BASEDIR/setup/_common.sh"
 
 install_kitty() {
   echo_yellow ">>> Installing kitty ..."
-  if (is_macos)
-  then
-    install__brew kitty
-  elif (is_not_executable kitty)
-  then
+  is_macos && install__brew kitty
+  is_linux &&\
+    is_not_executable kitty &&\
     install__from_url "https://sw.kovidgoyal.net/kitty/installer.sh" launch=n
-  fi
 }
 
 configure_kitty() {

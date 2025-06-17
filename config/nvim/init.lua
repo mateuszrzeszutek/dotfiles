@@ -33,9 +33,6 @@ require('lazy').setup({
   },
   { "nvim-telescope/telescope-file-browser.nvim" },
 
-  -- neorg
-  {'nvim-neorg/neorg', lazy = false, build = ':Neorg sync-parsers'},
-
   -- LSP support
   {'williamboman/mason.nvim'},
   {'williamboman/mason-lspconfig.nvim'},
@@ -188,22 +185,6 @@ telescope.setup({
 })
 telescope.load_extension('fzf')
 
--- neorg
-require("neorg").setup({
-  load = {
-    ["core.defaults"] = {},
-    ["core.concealer"] = {},
-    ["core.dirman"] = {
-      config = {
-        workspaces = {
-          main = "~/Org",
-        },
-        default_workspace = "main",
-      },
-    },
-  }
-})
-
 -- language servers
 require('mason').setup()
 require('mason-lspconfig').setup {
@@ -220,7 +201,9 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 lspconfig.clangd.setup{}
 
-lspconfig.gopls.setup{}
+if vim.fn.executable('go') == 1 then
+  lspconfig.gopls.setup{}
+end
 
 -- lua LS for vim config files
 lspconfig.lua_ls.setup({
@@ -237,6 +220,7 @@ lspconfig.lua_ls.setup({
     },
   }
 })
+
 -- rust lsp
 lspconfig.rust_analyzer.setup({
   capabilities = capabilities,

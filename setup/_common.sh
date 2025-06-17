@@ -11,14 +11,16 @@ install__brew() {
       install__apt build-essential procps curl file git
     fi
 
-    run_from_url "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+    install__url "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
 
     # make sure brew is on the PATH
     if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]
     then
       eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-    else
-      export PATH="$PATH:/opt/homebrew/bin"
+    fi
+    if [[ -f "/opt/homebrew/bin/brew" ]]
+    then
+      eval "$(/opt/homebrew/bin/brew shellenv)"
     fi
 
     brew analytics off
