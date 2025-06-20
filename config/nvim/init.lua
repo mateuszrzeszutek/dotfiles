@@ -1,6 +1,6 @@
 -- plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -68,7 +68,7 @@ vim.opt.matchtime = 2
 vim.opt.scrolloff = 5
 vim.opt.mouse = "a"
 
-local os = vim.loop.os_uname().sysname
+local os = vim.uv.os_uname().sysname
 if os == "Darwin" then
   vim.opt.guifont = "DejaVuSansM Nerd Font Mono:h14"
 elseif os == "Linux" then
@@ -186,30 +186,41 @@ telescope.setup({
 telescope.load_extension('fzf')
 
 -- language servers
+local has_go = vim.fn.executable('go') == 1
+local lsps = {
+  'clangd',
+  'lua_ls',
+  'rust_analyzer'
+}
+if has_go then
+  table.insert(lsps, 'gopls')
+end
+
 require('mason').setup()
 require('mason-lspconfig').setup {
-  ensure_installed = {
-    'clangd',
-    'gopls',
-    'lua_ls',
-    'rust_analyzer'
-  },
+  automatic_enable = true,
+  ensure_installed = lsps,
 }
 
-local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-lspconfig.clangd.setup{}
+vim.lsp.enable('clangd')
 
-if vim.fn.executable('go') == 1 then
-  lspconfig.gopls.setup{}
+if has_go then
+  vim.lsp.enable('gopls')
 end
 
 -- lua LS for vim config files
-lspconfig.lua_ls.setup({
+vim.lsp.config('lua_ls', {
   capabilities = capabilities,
   settings = {
     Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        globals = { "vim" },
+      },
       workspace = {
         -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file("", true),
@@ -222,7 +233,7 @@ lspconfig.lua_ls.setup({
 })
 
 -- rust lsp
-lspconfig.rust_analyzer.setup({
+vim.lsp.config('rust_analyzer', {
   capabilities = capabilities,
 })
 
@@ -242,14 +253,44 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
 -- lsp keybinds
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
+
+    local hover = function (opts)
+      opts = opts or {}
+      -- add borders to LSP hover window
+      opts = vim.tbl_deep_extend('force', opts, {
+        border = 'rounded'
+      })
+      return vim.lsp.buf.hover(opts)
+    end
+
+    local goto_diagnostic = function(diagnostic, opts)
+      if not diagnostic then
+        vim.api.nvim_echo({ { 'No more valid diagnostics to move to', 'WarningMsg' } }, true, {})
+        return
+      end
+      opts = opts or {}
+      opts = vim.tbl_deep_extend('force', opts, {
+        float = true,
+        diagnostic = diagnostic
+      })
+      return vim.diagnostic.jump(opts)
+    end
+    local prev_diagnostic = function(opts)
+      return goto_diagnostic(vim.diagnostic.get_prev(opts), opts)
+    end
+    local next_diagnostic = function(opts)
+      return goto_diagnostic(vim.diagnostic.get_next(opts), opts)
+    end
+
     local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
 
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+    vim.keymap.set('n', 'K', hover, opts)
 
-    vim.keymap.set('n', '<leader>cd', vim.diagnostic.goto_next, opts)
+    vim.keymap.set('n', '[d', prev_diagnostic, opts)
+    vim.keymap.set('n', ']d', next_diagnostic, opts)
+
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts)
 
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
@@ -257,20 +298,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     vim.keymap.set('n', '<leader>fr', ':Telescope lsp_references<cr>', opts)
     vim.keymap.set('n', '<leader>fs', ':Telescope lsp_document_symbols<cr>', opts)
+    vim.keymap.set('n', '<leader>fS', ':Telescope lsp_dynamic_workspace_symbols<cr>', opts)
 
     vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, opts)
   end,
 })
-
--- rounded borders in lsp hover windows
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  {border = 'rounded'}
-)
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  {border = 'rounded'}
-)
 
 -- diagnostic window
 vim.diagnostic.config({
