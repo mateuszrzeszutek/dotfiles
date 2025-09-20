@@ -2,6 +2,7 @@
 
 source "$BASEDIR/setup/_common.sh"
 
+# TODO change to VSCodium
 install_void() {
   echo_yellow ">>> Installing Void editor ..."
   is_macos && install__brew void

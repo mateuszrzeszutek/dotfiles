@@ -82,6 +82,10 @@ function sysupdate() {
     sudo apt-get -y upgrade
     sudo apt-get -y dist-upgrade
   fi
+  if (is_executable dnf)
+  then
+    sudo dnf upgrade -y
+  fi
   if (is_executable flatpak)
   then
     flatpak update -y

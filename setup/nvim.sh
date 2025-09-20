@@ -4,7 +4,12 @@ source "$BASEDIR/setup/_common.sh"
 
 install_nvim() {
   echo_yellow ">>> Installing nvim and dependencies ..."
-  install__brew neovim neovim-qt ripgrep luarocks
+  if (is_executable dnf)
+  then
+    install__dnf neovim neovim-qt ripgrep luarocks
+  else
+    install__brew neovim neovim-qt ripgrep luarocks
+  fi
 }
 
 install_fonts() {

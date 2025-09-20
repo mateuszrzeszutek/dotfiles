@@ -50,6 +50,13 @@ install__apt() {
   fi
 }
 
+install__dnf() {
+  if (is_executable dnf)
+  then
+    sudo dnf install -y "$@"
+  fi
+}
+
 install__from_url() {
   local url="$1"
   shift

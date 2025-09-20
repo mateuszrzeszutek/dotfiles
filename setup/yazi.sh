@@ -4,7 +4,14 @@ source "$BASEDIR/setup/_common.sh"
 
 install_yazi() {
   echo_yellow ">>> Installing yazi ..."
-  install__brew yazi ffmpeg 7zip jq poppler fd ripgrep fzf zoxide imagemagick
+  if (is_executable dnf)
+  then
+    install__dnf dnf-plugins-core
+    dnf copr enable lihaohong/yazi
+    install__dnf yazi
+  else
+    install__brew yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick
+  fi
   mkdir -p "$HOME/.config/yazi"
 }
 

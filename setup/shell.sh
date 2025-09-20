@@ -7,6 +7,7 @@ install_zsh() {
   then
     echo_yellow ">>> Installing zsh ..."
     install__apt zsh
+    install__dnf zsh
     echo_yellow ">>> Setting zsh as default shell ..."
     chsh -s "$(which zsh)"
   fi
