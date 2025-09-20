@@ -17,7 +17,7 @@ require('lazy').setup({
   {'folke/tokyonight.nvim'},
   {'nvim-lualine/lualine.nvim', dependencies = {'nvim-tree/nvim-web-devicons'}},
   {'akinsho/bufferline.nvim'},
-  {"lukas-reineke/indent-blankline.nvim"},
+  {'lukas-reineke/indent-blankline.nvim'},
 
   {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
   {'windwp/nvim-autopairs'},
@@ -31,7 +31,7 @@ require('lazy').setup({
       {'nvim-telescope/telescope-fzf-native.nvim', build = 'make'},
     },
   },
-  { "nvim-telescope/telescope-file-browser.nvim" },
+  { 'nvim-telescope/telescope-file-browser.nvim' },
 
   -- LSP support
   {'williamboman/mason.nvim'},
@@ -44,6 +44,9 @@ require('lazy').setup({
   -- snippets -- required for cmp
   {'hrsh7th/vim-vsnip'},
   {'hrsh7th/cmp-vsnip'},
+
+  {'lewis6991/gitsigns.nvim'},
+  {'folke/trouble.nvim'},
 })
 
 -- general
@@ -109,10 +112,12 @@ vim.keymap.set('n', '<esc>', '<esc>:noh<cr>')
 vim.keymap.set('n', '<leader>q', ':q<cr>')
 
 vim.keymap.set('n', '<leader>fw', ':w<cr>')
-vim.keymap.set('n', '<leader>ff', ':Telescope git_files<cr>')
+vim.keymap.set('n', '<leader>ff', ':Telescope find_files<cr>')
 vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<cr>')
 vim.keymap.set('n', '<leader>fb', ':Telescope file_browser path=%:p:h select_buffer=true<CR>')
 
+vim.keymap.set('n', '<leader>gf', ':Telescope git_files<cr>')
+vim.keymap.set('n', '<leader>gb', ':Gitsigns blame<cr>')
 
 vim.keymap.set('n', '<leader>sv', ':source $MYVIMRC<cr>')
 
@@ -156,6 +161,15 @@ require('bufferline').setup({
 -- indent lines
 require('ibl').setup()
 
+-- git blame & highlights
+require('gitsigns').setup {
+  current_line_blame = true,
+  linehl = true
+}
+
+require('trouble').setup {
+}
+
 -- better language parsing/highlights/formatting
 require('nvim-treesitter.configs').setup({
   ensure_installed = {
@@ -176,10 +190,17 @@ require('nvim-autopairs').setup()
 
 -- fuzzy finder
 local telescope = require('telescope')
+local open_with_trouble = require("trouble.sources.telescope").open
 telescope.setup({
   extensions = {
     file_browser = {
       hijack_netrw = true,
+    },
+  },
+  defaults = {
+    mappings = {
+      i = { ["<c-t>"] = open_with_trouble },
+      n = { ["<c-t>"] = open_with_trouble },
     },
   },
 })
@@ -291,6 +312,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', '<leader>cd', ':Trouble diagnostics toggle<cr>', opts)
 
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
