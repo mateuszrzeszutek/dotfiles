@@ -6,8 +6,9 @@ install_yazi() {
   echo_yellow ">>> Installing yazi ..."
   if (is_executable dnf)
   then
+    # TODO enable yazi plugin or something?
     install__dnf dnf-plugins-core
-    dnf copr enable lihaohong/yazi
+    sudo dnf copr enable -y lihaohong/yazi
     install__dnf yazi
   else
     install__brew yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick

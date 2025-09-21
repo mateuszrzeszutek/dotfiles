@@ -37,7 +37,7 @@ install__flatpak() {
     if (is_not_executable flatpak)
     then
       install__apt flatpak
-      flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+      sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
     fi
     flatpak install "$@"
   fi
