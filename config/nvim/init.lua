@@ -47,6 +47,9 @@ require('lazy').setup({
 
   {'lewis6991/gitsigns.nvim'},
   {'folke/trouble.nvim'},
+
+  -- language specific
+  {'fatih/vim-go'}
 })
 
 -- general
@@ -139,6 +142,7 @@ vim.keymap.set('n', '<leader>wl', ':botright vnew<cr>')
 -- buffers
 vim.keymap.set('n', '<tab>', ':BufferLineCycleNext<cr>')
 vim.keymap.set('n', '<s-tab>', ':BufferLineCyclePrev<cr>')
+vim.keymap.set('n', '<leader>bq', ':bdelete<cr>')
 
 -- bottom status line
 require('lualine').setup({
@@ -227,8 +231,21 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 vim.lsp.enable('clangd')
 
+-- go
 if has_go then
   vim.lsp.enable('gopls')
+
+  vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+    pattern = {
+      "*.go"
+    },
+    callback = function (ev)
+      local opts = { buffer = ev.buf }
+
+      vim.keymap.set('n', '<leader>cf', ':GoFmt<cr>', opts)
+      vim.keymap.set('n', '<leader>ct', ':GoTest<cr>', opts)
+    end
+  })
 end
 
 -- lua LS for vim config files
@@ -253,21 +270,36 @@ vim.lsp.config('lua_ls', {
   }
 })
 
--- rust lsp
-vim.lsp.config('rust_analyzer', {
-  capabilities = capabilities,
-})
-
--- language specific settings
+-- python
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
   pattern = {
-    "*.rs",
     "*.py"
   },
   callback = function ()
     vim.opt_local.shiftwidth = 4
     vim.opt_local.tabstop = 4
     vim.opt_local.softtabstop = 4
+  end
+})
+
+-- rust
+vim.lsp.config('rust_analyzer', {
+  capabilities = capabilities,
+})
+
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = {
+    "*.rs"
+  },
+  callback = function (ev)
+    local opts = { buffer = ev.buf }
+
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.tabstop = 4
+    vim.opt_local.softtabstop = 4
+
+    vim.keymap.set('n', '<leader>cf', ':RustFmt<cr>', opts)
+    vim.keymap.set('n', '<leader>ct', ':RustTest!<cr>', opts)
   end
 })
 

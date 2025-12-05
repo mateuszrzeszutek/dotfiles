@@ -6,7 +6,7 @@ install_yazi() {
   echo_yellow ">>> Installing yazi ..."
   if (is_executable dnf)
   then
-    # TODO enable yazi plugin or something?
+    # TODO enable dnf plugin or something?
     install__dnf dnf-plugins-core
     sudo dnf copr enable -y lihaohong/yazi
     install__dnf yazi
