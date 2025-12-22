@@ -19,7 +19,11 @@ require('lazy').setup({
   {'akinsho/bufferline.nvim'},
   {'lukas-reineke/indent-blankline.nvim'},
 
-  {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
+  {
+    'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
+    build = ':TSUpdate'
+  },
   {'windwp/nvim-autopairs'},
 
   -- fuzzy finder
