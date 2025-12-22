@@ -175,19 +175,11 @@ require('trouble').setup {
 }
 
 -- better language parsing/highlights/formatting
-require('nvim-treesitter.configs').setup({
-  ensure_installed = {
-    -- these must always be installed
-    "c", "lua", "vim", "vimdoc", "query",
-    "python", "rust", "toml"
-  },
-  highlight = {
-    enable = true
-  },
-  indent = {
-    enable = true
-  }
-})
+require('nvim-treesitter').install {
+  -- these must always be installed
+  "c", "lua", "vim", "vimdoc", "query",
+  "python", "rust", "toml"
+}
 
 -- simple autoclose brackets/parens/etc
 require('nvim-autopairs').setup()

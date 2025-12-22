@@ -9,9 +9,10 @@ install__brew() {
     if (is_linux)
     then
       install__apt build-essential procps curl file git
+      install__dnf procps curl file git
     fi
 
-    install__url "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+    install__from_url "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
 
     # make sure brew is on the PATH
     if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]
@@ -33,11 +34,15 @@ install__brew() {
 install__flatpak() {
   if (is_linux)
   then
-    echo_yellow ">>> Installing flatpak ..."
     if (is_not_executable flatpak)
     then
+      echo_yellow ">>> Installing flatpak ..."
       install__apt flatpak
       install__dnf flatpak
+    fi
+    if (! flatpak remotes | grep flathub >/dev/null)
+    then
+      echo_yellow ">>> Adding flathub repo ..."
       sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
     fi
     flatpak install "$@"

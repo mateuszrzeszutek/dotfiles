@@ -28,6 +28,7 @@ add_linux_desktop_icon() {
   then
     echo_yellow ">>> Adding kitty desktop icons ..."
 
+    mkdir -p "$HOME/.local/share/applications/"
     cp "$HOME/.local/kitty.app/share/applications/kitty.desktop" "$HOME/.local/share/applications/"
     cp "$HOME/.local/kitty.app/share/applications/kitty-open.desktop" "$HOME/.local/share/applications/"
     sed -i "s|Icon=kitty|Icon=$(readlink -f ~)/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g"\
