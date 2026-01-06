@@ -34,3 +34,9 @@ if [[ -d "$HOME/.lmstudio/bin" ]]
 then
   export PATH="$PATH:$HOME/.lmstudio/bin"
 fi
+
+export PNPM_HOME="$HOME/.local/share/pnpm"
+if [[ -d "$PNPM_HOME" ]]
+then
+  export PATH="$PATH:$PNPM_HOME"
+fi

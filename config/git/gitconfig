@@ -15,6 +15,7 @@ ci = commit
 co = checkout
 br = branch
 cp = cherry-pick
+dh = diff HEAD
 
 sf = svn fetch
 sr = svn rebase

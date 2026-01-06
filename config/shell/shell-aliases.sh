@@ -14,5 +14,7 @@ alias lsd='ls -d */'
 alias ll='ls -lhF'
 alias la='ls -lahF'
 
+alias gdh='g dh'
+
 alias e=nvim
 alias ew=nvim-qt
