@@ -1,0 +1,39 @@
+theme = "tokyonight"
+
+[editor]
+bufferline = "always"
+trim-trailing-whitespace = true
+popup-border = "all"
+
+[editor.cursor-shape]
+insert = "bar"
+
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+
+[editor.indent-guides]
+render = true
+character = "╎"
+skip-levels = 1
+
+[keys.normal]
+# Mac Alt-.
+"≥" = "repeat_last_motion"
+# Mac Alt-,
+"–" = "remove_primary_selection"
+# Mac Alt-(
+"Ľ" = "rotate_selection_contents_backward"
+# Mac Alt-)
+"ľ" = "rotate_selection_contents_forward"
+# Mac Alt-;
+"…" = "flip_selections"
+# Mac Alt-s
+"ś" = "split_selection_on_newline"
+# Mac Alt-c
+"ć" = "toggle_line_comments"
+
+[keys.normal.space]
+q = ":q"
+b = { b = "buffer_picker", q = ":buffer-close" }
+f = { f = "file_picker", w = ":w"}

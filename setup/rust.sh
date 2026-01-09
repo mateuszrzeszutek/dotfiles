@@ -10,5 +10,10 @@ install_rustup() {
   fi
 }
 
+install_rust_analyzer() {
+  echo_yellow ">>> Installing rust-analyzer ..."
+  rustup component add rust-analyzer
+}
+
 install_rustup
 
