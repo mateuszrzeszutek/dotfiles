@@ -18,3 +18,8 @@ alias gdh='g dh'
 
 alias e=nvim
 alias ew=nvim-qt
+
+if is_linux
+then
+  alias open='xdg-open'
+fi

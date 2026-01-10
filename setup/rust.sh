@@ -16,4 +16,5 @@ install_rust_analyzer() {
 }
 
 install_rustup
+install_rust_analyzer
 
