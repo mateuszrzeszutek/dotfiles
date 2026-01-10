@@ -7,12 +7,12 @@ install_sdkman() {
   then
     echo_yellow ">>> Installing sdkman ..."
     install__from_url "https://get.sdkman.io"
-    source "${HOME}/.sdkman/bin/sdkman-init.sh"
   fi
 }
 
 install_java() {
   echo_yellow ">>> Installing Java and Gradle ..."
+  source "${HOME}/.sdkman/bin/sdkman-init.sh"
   sdk install java
   sdk install gradle
 }
