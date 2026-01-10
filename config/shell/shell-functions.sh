@@ -98,4 +98,9 @@ function sysupdate() {
   then
     ya pkg upgrade
   fi
+  if (is_executable sdk)
+  then
+    sdk selfupdate
+    sdk update
+  fi
 }

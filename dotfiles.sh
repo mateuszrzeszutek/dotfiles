@@ -2,11 +2,12 @@
 
 export BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-source ${BASEDIR}/config/shell/shell-functions.sh
+source "${BASEDIR}"/config/shell/shell-functions.sh
 
 available_tasks=()
-for task in $(ls "$BASEDIR/setup")
+for task in "$BASEDIR"/setup/*
 do
+  task=$(basename "$task")
   if [[ "$task" != "_common.sh" ]]
   then
     available_tasks+=("${task%.sh}")

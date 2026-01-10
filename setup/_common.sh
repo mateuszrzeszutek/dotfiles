@@ -9,6 +9,9 @@ install__brew() {
     if (is_linux)
     then
       install__apt build-essential procps curl file git
+
+      is_executable dnf &&\
+       sudo dnf group install -y development-tools
       install__dnf procps curl file git
     fi
 
