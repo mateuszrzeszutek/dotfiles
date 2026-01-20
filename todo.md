@@ -1,0 +1,10 @@
+- [ ] Refactor `_common.sh` scripts
+- [x] Add fish and starship
+- [x] Starship config
+- [x] Fish config
+- [ ] Replace some of the zsh git aliases with git-level aliases
+- [ ] Clean up bash/zsh configs
+- [ ] Replace sdkman with mise
+- [ ] Split up nvim configs
+- [ ] Add extra language servers to nvim (python, bash, ...)
+- [ ] Fix the green color on git added files in nvim

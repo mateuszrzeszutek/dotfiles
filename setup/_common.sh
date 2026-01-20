@@ -66,6 +66,13 @@ install__dnf() {
   fi
 }
 
+dnf_enable() {
+  if (is_executable dnf)
+  then
+    sudo dnf copr enable "$@"
+  fi
+}
+
 install__from_url() {
   local url="$1"
   shift
@@ -76,5 +83,12 @@ install__from_url() {
   then
     bash -c "$(wget "$url" -O -)" -- "$@"
   fi
+}
+
+link_config() {
+  local src=$1
+  local dst=$2
+  mkdir -p "$(dirname $dst)"
+  ln -Fs "$src" "$dst"
 }
 
