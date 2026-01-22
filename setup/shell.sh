@@ -52,6 +52,12 @@ install_starship() {
   dnf_enable atim/starship && dnf_install starship
 }
 
+install_fastfetch() {
+  echo_yellow ">>> Installing fastfetch ..."
+  brew_install fastfetch
+  dnf_install fastfetch
+}
+
 configure_fish() {
   echo_yellow ">>> Configuring fish ..."
   link_config "$BASEDIR/config/fish/config.fish" "$HOME/.config/fish/config.fish"
@@ -70,7 +76,8 @@ configure_bash
 configure_zsh
 
 install_fish
-configure_fish
 install_starship
+install_fastfetch
+configure_fish
 configure_starship
 

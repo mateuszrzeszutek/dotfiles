@@ -3,6 +3,7 @@
 - [x] Starship config
 - [x] Fish config
 - [ ] Replace some of the zsh git aliases with git-level aliases
+- [ ] Use fish abbreviations (`abbr -a name command`) instead of aliases/functions
 - [ ] Clean up bash/zsh configs
 - [ ] Replace sdkman with mise
 - [ ] Split up nvim configs

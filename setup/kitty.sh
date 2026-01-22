@@ -17,7 +17,10 @@ configure_kitty() {
   then
     link_config "$HOME/.local/kitty.app/bin/kitty" "$HOME/.local/bin/kitty"
     link_config "$HOME/.local/kitty.app/bin/kitten" "$HOME/.local/bin/kitten"
+    export PATH="$PATH:$HOME/.local/bin"
   fi
+
+  kitten themes 'Tokyo Night'
 }
 
 add_linux_desktop_icon() {
