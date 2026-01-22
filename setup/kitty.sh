@@ -4,22 +4,19 @@ source "$BASEDIR/setup/_common.sh"
 
 install_kitty() {
   echo_yellow ">>> Installing kitty ..."
-  is_macos && install__brew kitty
-  is_linux &&\
-    is_not_executable kitty &&\
-    install__from_url "https://sw.kovidgoyal.net/kitty/installer.sh" launch=n
+  brew_install kitty
+  is_not_executable kitty &&\
+    url_script_install "https://sw.kovidgoyal.net/kitty/installer.sh" launch=n
 }
 
 configure_kitty() {
   echo_yellow ">>> Configuring kitty ..."
-  mkdir -p "$HOME/.config/kitty"
-  ln -fs "$BASEDIR/config/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
+  link_config "$BASEDIR/config/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
 
   if (is_linux)
   then
-    mkdir -p "$HOME/.local/bin"
-    ln -fs "$HOME/.local/kitty.app/bin/kitty" "$HOME/.local/bin/kitty"
-    ln -fs "$HOME/.local/kitty.app/bin/kitten" "$HOME/.local/bin/kitten"
+    link_config "$HOME/.local/kitty.app/bin/kitty" "$HOME/.local/bin/kitty"
+    link_config "$HOME/.local/kitty.app/bin/kitten" "$HOME/.local/bin/kitten"
   fi
 }
 

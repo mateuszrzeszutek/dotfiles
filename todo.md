@@ -1,4 +1,4 @@
-- [ ] Refactor `_common.sh` scripts
+- [x] Refactor `_common.sh` scripts
 - [x] Add fish and starship
 - [x] Starship config
 - [x] Fish config

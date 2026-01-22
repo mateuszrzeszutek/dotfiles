@@ -8,10 +8,6 @@ end
 
 fish_add_path -g --path "$HOME/.local/bin"
 
-# Homebrew
-if test -f "/home/linuxbrew/.linuxbrew/bin/brew"
-  /home/linuxbrew/.linuxbrew/bin/brew shellenv fish | source
-end
 if test -f "/opt/homebrew/bin/brew"
   /opt/homebrew/bin/brew shellenv fish | source
 end

@@ -1,65 +1,53 @@
 #!/bin/bash
 
-source "$BASEDIR/config/shell/shell-functions.sh"
-
-install__brew() {
-  if (is_not_executable brew)
+brew_install() {
+  if (is_macos)
   then
-    echo_yellow ">>> Installing homebrew ..."
-    if (is_linux)
+    if (is_not_executable brew)
     then
-      install__apt build-essential procps curl file git
+      echo_yellow ">>> Installing homebrew ..."
+      url_script_install "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
 
-      is_executable dnf &&\
-       sudo dnf group install -y development-tools
-      install__dnf procps curl file git
+      # make sure brew is on the PATH
+      if [[ -f "/opt/homebrew/bin/brew" ]]
+      then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+      fi
+
+      brew analytics off
     fi
 
-    install__from_url "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
-
-    # make sure brew is on the PATH
-    if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]
-    then
-      eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-    fi
-    if [[ -f "/opt/homebrew/bin/brew" ]]
-    then
-      eval "$(/opt/homebrew/bin/brew shellenv)"
-    fi
-
-    brew analytics off
+    brew install "$@"
   fi
-
-  ulimit -Sn 65536 #need more file descriptors for brew
-  brew install "$@"
 }
 
-install__flatpak() {
+flatpak_install() {
   if (is_linux)
   then
     if (is_not_executable flatpak)
     then
       echo_yellow ">>> Installing flatpak ..."
-      install__apt flatpak
-      install__dnf flatpak
+      apt_install flatpak
+      dnf_install flatpak
     fi
     if (! flatpak remotes | grep flathub >/dev/null)
     then
       echo_yellow ">>> Adding flathub repo ..."
       sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
     fi
+
     flatpak install "$@"
   fi
 }
 
-install__apt() {
+apt_install() {
   if (is_executable apt-get)
   then
     sudo apt-get install -y "$@"
   fi
 }
 
-install__dnf() {
+dnf_install() {
   if (is_executable dnf)
   then
     sudo dnf install -y "$@"
@@ -69,11 +57,12 @@ install__dnf() {
 dnf_enable() {
   if (is_executable dnf)
   then
-    sudo dnf copr enable "$@"
+    sudo dnf install -y dnf-plugins-core
+    sudo dnf copr enable -y "$@"
   fi
 }
 
-install__from_url() {
+url_script_install() {
   local url="$1"
   shift
   if (is_executable curl)
@@ -90,5 +79,48 @@ link_config() {
   local dst=$2
   mkdir -p "$(dirname $dst)"
   ln -Fs "$src" "$dst"
+}
+
+is_executable () {
+  [[ ! -z `command -v $1` ]] && return 0 || return 1
+}
+is_not_executable () {
+  [[ -z `command -v $1` ]] && return 0 || return 1
+}
+
+is_macos () {
+  [[ "$(uname)" == "Darwin" ]] && return 0 || return 1
+}
+is_linux () {
+  [[ "$(uname)" == "Linux" ]] && return 0 || return 1
+}
+
+echo_red () {
+  _font_red; echo $@; _font_normal
+}
+echo_green () {
+  _font_green; echo $@; _font_normal
+}
+echo_blue () {
+  _font_blue; echo $@; _font_normal
+}
+echo_yellow () {
+  _font_yellow; echo $@; _font_normal
+}
+
+_font_normal () {
+  echo -n -e "\033[0m"
+}
+_font_red () {
+  echo -n -e "\033[1;31m"
+}
+_font_green () {
+  echo -n -e "\033[1;32m"
+}
+_font_blue () {
+  echo -n -e "\033[1;34m"
+}
+_font_yellow () {
+  echo -n -e "\033[1;33m"
 }
 

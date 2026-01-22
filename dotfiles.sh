@@ -2,7 +2,7 @@
 
 export BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-source "${BASEDIR}"/config/shell/shell-functions.sh
+source "${BASEDIR}"/setup/_common.sh
 
 available_tasks=()
 for task in "$BASEDIR"/setup/*
@@ -22,15 +22,11 @@ then
   for task in "${available_tasks[@]}"
   do
     echo -n "- "
-    font_blue
-    echo "$task"
-    font_normal
+    echo_blue "$task"
   done
   echo
   echo -n "Alternatively, use special task '"
-  font_blue
-  echo -n "all"
-  font_normal
+  echo_blue -n "all"
   echo "' to run all of them."
   exit 0
 fi

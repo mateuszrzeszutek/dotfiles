@@ -4,19 +4,15 @@ source "$BASEDIR/setup/_common.sh"
 
 install_nvim() {
   echo_yellow ">>> Installing nvim and dependencies ..."
-  if (is_executable dnf)
-  then
-    install__dnf neovim neovim-qt ripgrep luarocks
-  else
-    install__brew neovim neovim-qt ripgrep luarocks
-  fi
+  brew_install neovim neovim-qt ripgrep luarocks
+  dnf_install neovim neovim-qt ripgrep luarocks
 }
 
 install_fonts() {
   echo ">>> Installing modded DejaVu Sans Mono fonts ..."
   if (is_macos)
   then
-    install__brew font-dejavu-sans-mono-nerd-font
+    brew_install font-dejavu-sans-mono-nerd-font
   elif (is_executable fc-list)
   then
     if (! (fc-list | grep DejaVuSansMNerd >/dev/null))
@@ -35,8 +31,7 @@ install_fonts() {
 
 configure_nvim() {
   echo_yellow ">>> Configuring nvim ..."
-  mkdir -p "$HOME/.config/nvim"
-  ln -fs "$BASEDIR/config/nvim/init.lua" "$HOME/.config/nvim/init.lua"
+  link_config "$BASEDIR/config/nvim/init.lua" "$HOME/.config/nvim/init.lua"
 }
 
 install_nvim

@@ -3,10 +3,10 @@
 source "$BASEDIR/setup/_common.sh"
 
 install_rustup() {
+  echo_yellow ">>> Installing rustup ..."
   if (is_not_executable rustup)
   then
-    echo_yellow ">>> Installing rustup ..."
-    install__from_url "https://sh.rustup.rs" --no-modify-path
+     url_script_install "https://sh.rustup.rs" --no-modify-path
   fi
 }
 

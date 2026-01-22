@@ -6,7 +6,7 @@ install_sdkman() {
   if [[ ! -d "$HOME/.sdkman" ]]
   then
     echo_yellow ">>> Installing sdkman ..."
-    install__from_url "https://get.sdkman.io"
+    url_script_install "https://get.sdkman.io"
   fi
 }
 
@@ -19,8 +19,8 @@ install_java() {
 
 install_intellij() {
   echo_yellow ">>> Installing IntelliJ IDEA ..."
-  is_linux && install__flatpak "com.jetbrains.IntelliJ-IDEA-Community"
-  is_macos && install__brew intellij-idea-ce
+  brew_install intellij-idea
+  flatpak_install "com.jetbrains.IntelliJ-IDEA-Community"
 }
 
 install_sdkman
