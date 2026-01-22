@@ -172,7 +172,7 @@ require('ibl').setup()
 -- git blame & highlights
 require('gitsigns').setup {
   current_line_blame = true,
-  linehl = true
+  numhl = true
 }
 
 require('trouble').setup {

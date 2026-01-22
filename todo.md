@@ -8,4 +8,4 @@
 - [ ] Replace sdkman with mise
 - [ ] Split up nvim configs
 - [ ] Add extra language servers to nvim (python, bash, ...)
-- [ ] Fix the green color on git added files in nvim
+- [x] Fix the green color on git added files in nvim

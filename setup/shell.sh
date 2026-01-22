@@ -2,17 +2,6 @@
 
 source "$BASEDIR/setup/_common.sh"
 
-install_zsh() {
-  if (is_linux)
-  then
-    echo_yellow ">>> Installing zsh ..."
-    apt_install zsh
-    dnf_install zsh
-    echo_yellow ">>> Setting zsh as default shell ..."
-    chsh -s "$(which zsh)"
-  fi
-}
-
 configure_common_shell() {
   echo_yellow ">>> Configuring common shell settings ..."
   link_config "$BASEDIR/config/shell/shell-aliases.sh" "$HOME/.shell-aliases"
@@ -26,16 +15,6 @@ configure_bash() {
 }
 
 configure_zsh() {
-  if [[ ! -e "$HOME/.oh-my-zsh" ]]; then
-    echo_yellow '>>> Removing zsh config (if present) ...'
-    unlink "$HOME/.zshrc"
-
-    echo_yellow '>>> Downloading Oh-My-Zsh ...'
-    pushd "$HOME"
-    url_script_install "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
-    popd
-  fi
-
   echo_yellow ">>> Configuring zsh ..."
   link_config "$BASEDIR/config/shell/zshrc" "$HOME/.zshrc"
 }
@@ -70,7 +49,6 @@ configure_starship() {
   link_config "$BASEDIR/config/starship/starship.toml" "$HOME/.config/starship.toml"
 }
 
-install_zsh
 configure_common_shell
 configure_bash
 configure_zsh
