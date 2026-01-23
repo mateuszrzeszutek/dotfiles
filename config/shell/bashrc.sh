@@ -1,7 +1,3 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-
 # If not running interactively, don't do anything
 case $- in
   *i*) ;;
@@ -28,14 +24,6 @@ if [ -e /etc/bash.bashrc ]; then
   source /etc/bash.bashrc
 fi
 
-# Customizations
-source $HOME/.shell-functions
-source $HOME/.shell-aliases
-source $HOME/.shell-env
-if [[ -f $HOME/.shell-machine-specific ]]; then
-  source $HOME/.shell-machine-specific
-fi
-
 PS1="\[\e[1;32m\]${debian_chroot:+($debian_chroot)}\u\[\e[0m\]@\[\e[1;32m\]\h\[\e[0m\]:\[\e[1;34m\]\w\[\e[0m\] \$ "
 
 export PS1
@@ -52,3 +40,15 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export EDITOR='nvim'
+
+# Fix GPG on MacOS
+if [[ -z "$GPG_TTY" ]]
+then
+  export GPG_TTY="$(tty)"
+fi
+
+if [[ -f "/opt/homebrew/bin/brew" ]]
+then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi

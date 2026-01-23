@@ -2,21 +2,14 @@
 
 source "$BASEDIR/setup/_common.sh"
 
-configure_common_shell() {
-  echo_yellow ">>> Configuring common shell settings ..."
-  link_config "$BASEDIR/config/shell/shell-aliases.sh" "$HOME/.shell-aliases"
-  link_config "$BASEDIR/config/shell/shell-env.sh" "$HOME/.shell-env"
-  link_config "$BASEDIR/config/shell/shell-functions.sh" "$HOME/.shell-functions"
-}
-
 configure_bash() {
   echo_yellow ">>> Configuring bash ..."
-  link_config "$BASEDIR/config/shell/bashrc" "$HOME/.bashrc"
+  link_config "$BASEDIR/config/shell/bashrc.sh" "$HOME/.bashrc"
 }
 
 configure_zsh() {
   echo_yellow ">>> Configuring zsh ..."
-  link_config "$BASEDIR/config/shell/zshrc" "$HOME/.zshrc"
+  link_config "$BASEDIR/config/shell/zshrc.sh" "$HOME/.zshrc"
 }
 
 install_fish() {
@@ -49,10 +42,8 @@ configure_starship() {
   link_config "$BASEDIR/config/starship/starship.toml" "$HOME/.config/starship.toml"
 }
 
-configure_common_shell
 configure_bash
 configure_zsh
-
 install_fish
 install_starship
 install_fastfetch
