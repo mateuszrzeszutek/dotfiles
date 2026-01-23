@@ -12,7 +12,7 @@ if test -f "/opt/homebrew/bin/brew"
   /opt/homebrew/bin/brew shellenv fish | source
 end
 
-if test -d "$HOME/.cargo/bin"
-  fish_add_path -g --path "$HOME/.cargo/bin"
+if command -v mise >/dev/null
+  mise activate fish | source
 end
 
