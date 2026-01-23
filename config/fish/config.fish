@@ -1,5 +1,5 @@
 if status is-interactive
-  set -fx fish_greeting
+  set -gx fish_greeting
   if command -v fastfetch >/dev/null
     fastfetch
   end
