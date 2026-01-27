@@ -78,7 +78,8 @@ link_config() {
   local src=$1
   local dst=$2
   mkdir -p "$(dirname $dst)"
-  ln -Fs "$src" "$dst"
+  unlink "$dst"
+  ln -fs "$src" "$dst"
 }
 
 is_executable () {
