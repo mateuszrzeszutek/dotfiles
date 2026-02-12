@@ -21,4 +21,8 @@ if status is-interactive
   abbr -a gsta git stash
   abbr -a gstl git stash list
   abbr -a gstp git stash pop
+
+  if test "$(uname)" = "Linux"
+    abbr -a open xdg-open
+  end
 end

@@ -78,7 +78,10 @@ link_config() {
   local src=$1
   local dst=$2
   mkdir -p "$(dirname $dst)"
-  unlink "$dst"
+  if [[ -e "$dst" ]]
+  then
+    rm -rf "$dst"
+  fi
   ln -fs "$src" "$dst"
 }
 
