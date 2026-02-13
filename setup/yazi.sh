@@ -18,7 +18,7 @@ configure_yazi() {
 
 install_yazi_plugins() {
   echo_yellow '>>> Installing yazi addons ...'
-  ya pkg add BennyOe/tokyo-night
+  ya pkg add kmlupreti/ayu-dark
   ya pkg add yazi-rs/plugins:full-border
   ya pkg add yazi-rs/plugins:git
   ya pkg add yazi-rs/plugins:smart-enter

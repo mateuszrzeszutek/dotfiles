@@ -13,7 +13,7 @@ vim.opt.runtimepath:prepend(lazypath)
 
 require('lazy').setup({
   -- appearance
-  {'folke/tokyonight.nvim'},
+  {'Shatur/neovim-ayu'},
   {'nvim-lualine/lualine.nvim', dependencies = {'nvim-tree/nvim-web-devicons'}},
   {'akinsho/bufferline.nvim'},
   {'lukas-reineke/indent-blankline.nvim'},

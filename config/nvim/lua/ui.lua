@@ -1,4 +1,4 @@
-vim.cmd.colorscheme('tokyonight-night')
+require('ayu').colorscheme()
 
 local os = vim.uv.os_uname().sysname
 if os == "Darwin" then
@@ -11,8 +11,7 @@ end
 require('lualine').setup({
   options = {
     icons_enabled = true,
-    component_separators = '|',
-    section_separators = '',
+    theme = 'ayu',
   }
 })
 
