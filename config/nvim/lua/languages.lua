@@ -1,111 +1,43 @@
--- better language parsing/highlights/formatting
-require('nvim-treesitter').install {
-  -- these must always be installed
-  "c", "lua", "vim", "vimdoc", "query",
-  "python", "rust", "toml"
+local languages = {
+  require('languages.c'),
+  require('languages.go'),
+  require('languages.nvim'),
+  require('languages.python'),
+  require('languages.rust'),
 }
 
--- simple autoclose brackets/parens/etc
-require('nvim-autopairs').setup()
+-- better language parsing/highlights/formatting
+local treesitter_parsers = {}
+for _, l in pairs(languages) do
+  for _, p in pairs(l.treesitter) do
+    treesitter_parsers[p] = p
+  end
+end
+
+require('nvim-treesitter').install(treesitter_parsers)
 
 -- language servers
-local has_go = vim.fn.executable('go') == 1
-local lsps = {
-  'clangd',
-  'lua_ls',
-  'rust_analyzer'
-}
-if has_go then
-  table.insert(lsps, 'gopls')
+local lsp_servers = {}
+for _, l in pairs(languages) do
+  for _, p in pairs(l.lsp) do
+    lsp_servers[p] = p
+  end
 end
 
 require('mason').setup()
 require('mason-lspconfig').setup {
   automatic_enable = true,
-  ensure_installed = lsps,
+  ensure_installed = lsp_servers,
 }
-
-local function set_tab_length(tab_length)
-  vim.opt_local.shiftwidth = tab_length
-  vim.opt_local.tabstop = tab_length
-  vim.opt_local.softtabstop = tab_length
-end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- c
-vim.lsp.config('clangd', {
-  capabilities = capabilities
-})
-
--- go
-if has_go then
-  vim.lsp.enable('gopls')
-
-  vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
-    pattern = {
-      "*.go"
-    },
-    callback = function (ev)
-      local opts = { buffer = ev.buf }
-
-      vim.keymap.set('n', '<leader>cf', ':GoFmt<cr>', opts)
-      vim.keymap.set('n', '<leader>ct', ':GoTest<cr>', opts)
-    end
-  })
+for _, l in pairs(languages) do
+  l.setup(capabilities)
 end
 
--- lua LS for vim config files
-vim.lsp.config('lua_ls', {
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        globals = { "vim" },
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      telemetry = {
-        enable = false,
-      },
-    },
-  }
-})
-
-
--- python
-vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
-  pattern = {
-    "*.py"
-  },
-  callback = function ()
-    set_tab_length(4)
-  end
-})
-
--- rust
-vim.lsp.config('rust_analyzer', {
-  capabilities = capabilities,
-})
-
-vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
-  pattern = {
-    "*.rs"
-  },
-  callback = function (ev)
-    local opts = { buffer = ev.buf }
-
-    set_tab_length(4)
-
-    vim.keymap.set('n', '<leader>cf', ':RustFmt<cr>', opts)
-    vim.keymap.set('n', '<leader>ct', ':RustTest!<cr>', opts)
-  end
-})
+-- simple autoclose brackets/parens/etc
+require('nvim-autopairs').setup()
 
 -- lsp keybinds
 vim.api.nvim_create_autocmd('LspAttach', {

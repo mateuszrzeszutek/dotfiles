@@ -6,6 +6,7 @@
 - [x] Use fish abbreviations (`abbr -a name command`) instead of aliases/functions
 - [x] Clean up bash/zsh configs
 - [x] Replace sdkman with mise
-- [ ] Split up nvim configs
+- [x] Split up nvim configs
 - [ ] Add extra language servers to nvim (python, bash, ...)
+- [ ] Setup which-key.nvim
 - [x] Fix the green color on git added files in nvim
