@@ -12,6 +12,8 @@ install_kitty() {
 configure_kitty() {
   echo_yellow ">>> Configuring kitty ..."
   link_config "$BASEDIR/config/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
+  link_config "$BASEDIR/config/kitty/kitty-linux.conf" "$HOME/.config/kitty/kitty-linux.conf"
+  link_config "$BASEDIR/config/kitty/kitty-macos.conf" "$HOME/.config/kitty/kitty-macos.conf"
 
   if (is_linux)
   then
@@ -20,7 +22,7 @@ configure_kitty() {
     export PATH="$PATH:$HOME/.local/bin"
   fi
 
-  kitten themes 'Tokyo Night'
+  kitten themes 'Ayu'
 }
 
 add_linux_desktop_icon() {
