@@ -1,5 +1,7 @@
 local languages = {
+  require('languages.bash'),
   require('languages.c'),
+  require('languages.fish'),
   require('languages.go'),
   require('languages.nvim'),
   require('languages.python'),
@@ -20,7 +22,7 @@ require('nvim-treesitter').install(treesitter_parsers)
 local lsp_servers = {}
 for _, l in pairs(languages) do
   for _, p in pairs(l.lsp) do
-    lsp_servers[p] = p
+    table.insert(lsp_servers, p)
   end
 end
 

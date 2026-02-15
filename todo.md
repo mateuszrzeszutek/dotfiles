@@ -7,6 +7,8 @@
 - [x] Clean up bash/zsh configs
 - [x] Replace sdkman with mise
 - [x] Split up nvim configs
-- [ ] Add extra language servers to nvim (python, bash, ...)
-- [ ] Setup which-key.nvim
+- [x] Add extra language servers to nvim (python, bash, ...)
 - [x] Fix the green color on git added files in nvim
+- [ ] Setup which-key.nvim
+- [ ] Better nvim keybinds, UI (some Trouble keybinds)
+- [ ] Nvim DAP support?
