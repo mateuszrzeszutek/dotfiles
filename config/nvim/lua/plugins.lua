@@ -51,7 +51,7 @@ require('lazy').setup({
   {'lewis6991/gitsigns.nvim'},
   {'folke/trouble.nvim'},
 
-  -- language specific
-  {'fatih/vim-go'}
+  -- keymap help window
+  {'folke/which-key.nvim'}
 })
 

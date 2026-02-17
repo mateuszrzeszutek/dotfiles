@@ -1,6 +1,6 @@
 require('plugins')
 require('options')
 require('ui')
-require('keymap')
+require('keymap').setup()
 require('languages')
 

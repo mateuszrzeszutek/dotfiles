@@ -41,59 +41,60 @@ end
 -- simple autoclose brackets/parens/etc
 require('nvim-autopairs').setup()
 
+local function hover(opts)
+  opts = opts or {}
+  -- add borders to LSP hover window
+  opts = vim.tbl_deep_extend('force', opts, {
+    border = 'rounded'
+  })
+  return vim.lsp.buf.hover(opts)
+end
+
+local function goto_diagnostic(diagnostic, opts)
+  if not diagnostic then
+    vim.api.nvim_echo({ { 'No more valid diagnostics to move to', 'WarningMsg' } }, true, {})
+    return
+  end
+  opts = opts or {}
+  opts = vim.tbl_deep_extend('force', opts, {
+    float = true,
+    diagnostic = diagnostic
+  })
+  return vim.diagnostic.jump(opts)
+end
+local function prev_diagnostic(opts)
+  return goto_diagnostic(vim.diagnostic.get_prev(opts), opts)
+end
+local function next_diagnostic(opts)
+  return goto_diagnostic(vim.diagnostic.get_next(opts), opts)
+end
+
+local k = require('keymap')
+local nmap, ngroup = k.nmap, k.ngroup
+
 -- lsp keybinds
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
+    local b = ev.buf
 
-    local function hover(opts)
-      opts = opts or {}
-      -- add borders to LSP hover window
-      opts = vim.tbl_deep_extend('force', opts, {
-        border = 'rounded'
-      })
-      return vim.lsp.buf.hover(opts)
-    end
+    ngroup('<leader>l', 'LSP')
+    nmap('<leader>lf', vim.lsp.buf.format, 'Format buffer', b)
+    nmap('<leader>ld', ':Trouble diagnostics toggle<cr>', 'Toggle diagnostics window', b)
+    nmap('<leader>ls', ':Trouble symbols toggle<cr>', 'Toggle symbols window', b)
+    nmap('<leader>lr', ':Telescope lsp_references<cr>', 'Search for current symbol\'s references', b)
+    nmap('<leader>lS', ':Telescope lsp_dynamic_workspace_symbols<cr>', 'Search for symbols in workspace', b)
 
-    local goto_diagnostic = function(diagnostic, opts)
-      if not diagnostic then
-        vim.api.nvim_echo({ { 'No more valid diagnostics to move to', 'WarningMsg' } }, true, {})
-        return
-      end
-      opts = opts or {}
-      opts = vim.tbl_deep_extend('force', opts, {
-        float = true,
-        diagnostic = diagnostic
-      })
-      return vim.diagnostic.jump(opts)
-    end
-    local prev_diagnostic = function(opts)
-      return goto_diagnostic(vim.diagnostic.get_prev(opts), opts)
-    end
-    local next_diagnostic = function(opts)
-      return goto_diagnostic(vim.diagnostic.get_next(opts), opts)
-    end
+    nmap('K', hover, 'Display information about current symbol', b)
 
-    local opts = { buffer = ev.buf }
+    nmap('[d', prev_diagnostic, 'Previous diagnostic', b)
+    nmap(']d', next_diagnostic, 'Next diagnostic', b)
 
-    vim.keymap.set('n', 'K', hover, opts)
+    nmap('<a-cr>', vim.lsp.buf.code_action, 'Code action', b)
+    nmap('<F2>', vim.lsp.buf.rename, 'Rename symbol', b)
 
-    vim.keymap.set('n', '[d', prev_diagnostic, opts)
-    vim.keymap.set('n', ']d', next_diagnostic, opts)
-
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<a-cr>', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>cd', ':Trouble diagnostics toggle<cr>', opts)
-    vim.keymap.set('n', '<leader>cs', ':Trouble symbols toggle<cr>', opts)
-
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-
-    vim.keymap.set('n', '<leader>fr', ':Telescope lsp_references<cr>', opts)
-    vim.keymap.set('n', '<leader>fs', ':Telescope lsp_document_symbols<cr>', opts)
-    vim.keymap.set('n', '<leader>fS', ':Telescope lsp_dynamic_workspace_symbols<cr>', opts)
-
+    nmap('gD', vim.lsp.buf.declaration, 'Go to declaration', b)
+    nmap('gd', vim.lsp.buf.definition, 'Go to definition', b)
+    nmap('gi', vim.lsp.buf.implementation, 'Go to implementation', b)
   end,
 })
 
@@ -128,4 +129,3 @@ cmp.setup({
     }
   )
 })
-

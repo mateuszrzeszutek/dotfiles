@@ -62,3 +62,7 @@ telescope.setup({
 })
 telescope.load_extension('fzf')
 
+-- keymap help window
+require('which-key').setup({
+  preset = 'helix'
+})
