@@ -13,17 +13,17 @@ vim.opt.runtimepath:prepend(lazypath)
 
 require('lazy').setup({
   -- appearance
-  {'Shatur/neovim-ayu'},
-  {'nvim-lualine/lualine.nvim', dependencies = {'nvim-tree/nvim-web-devicons'}},
-  {'akinsho/bufferline.nvim'},
-  {'lukas-reineke/indent-blankline.nvim'},
+  { 'Shatur/neovim-ayu' },
+  { 'nvim-lualine/lualine.nvim',          dependencies = { 'nvim-tree/nvim-web-devicons' } },
+  { 'akinsho/bufferline.nvim' },
+  { 'lukas-reineke/indent-blankline.nvim' },
 
   {
     'nvim-treesitter/nvim-treesitter',
     branch = 'main',
     build = ':TSUpdate'
   },
-  {'windwp/nvim-autopairs'},
+  { 'windwp/nvim-autopairs' },
 
   -- fuzzy finder
   {
@@ -31,27 +31,26 @@ require('lazy').setup({
     branch = 'master',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      {'nvim-telescope/telescope-fzf-native.nvim', build = 'make'},
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     },
   },
   { 'nvim-telescope/telescope-file-browser.nvim' },
 
   -- LSP support
-  {'williamboman/mason.nvim'},
-  {'williamboman/mason-lspconfig.nvim'},
-  {'neovim/nvim-lspconfig'},
+  { 'williamboman/mason.nvim' },
+  { 'williamboman/mason-lspconfig.nvim' },
+  { 'neovim/nvim-lspconfig' },
 
   -- completion
-  {'hrsh7th/nvim-cmp'},
-  {'hrsh7th/cmp-nvim-lsp'},
+  { 'hrsh7th/nvim-cmp' },
+  { 'hrsh7th/cmp-nvim-lsp' },
   -- snippets -- required for cmp
-  {'hrsh7th/vim-vsnip'},
-  {'hrsh7th/cmp-vsnip'},
+  { 'hrsh7th/vim-vsnip' },
+  { 'hrsh7th/cmp-vsnip' },
 
-  {'lewis6991/gitsigns.nvim'},
-  {'folke/trouble.nvim'},
+  { 'lewis6991/gitsigns.nvim' },
+  { 'folke/trouble.nvim' },
 
   -- keymap help window
-  {'folke/which-key.nvim'}
+  { 'folke/which-key.nvim' }
 })
-

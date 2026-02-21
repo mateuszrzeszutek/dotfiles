@@ -3,9 +3,9 @@ vim.g.maplocalleader = ','
 
 local wk = require('which-key')
 
-local function ngroup(lhs, group)
+local function ngroup(lhs, group, proxy)
   wk.add({
-    { lhs, group = group, mode = 'n' }
+    { lhs, group = group, proxy = proxy, mode = 'n' }
   })
 end
 
@@ -43,13 +43,7 @@ local function setup()
   nmap('<leader>vs', ':source $MYVIMRC<cr>', 'Reload nvim config')
   nmap('<leader>ve', ':edit $MYVIMRC<cr>', 'Edit nvim config')
 
-  ngroup('<leader>w', 'Windows')
-  nmap('<leader>ws', ':split<cr>', 'Split horizontally')
-  nmap('<leader>wv', ':vsplit<cr>', 'Split vertically')
-  nmap('<leader>wh', '<c-W>h', 'Jump to left window')
-  nmap('<leader>wj', '<c-W>j', 'Jump to bottom window')
-  nmap('<leader>wk', '<c-W>k', 'Jump to top window')
-  nmap('<leader>wl', '<c-W>l', 'Jump to right window')
+  ngroup('<leader>w', 'Windows', '<c-w>')
 
   -- shifting without leaving selection mode
   vim.keymap.set('v', '<', '<gv')

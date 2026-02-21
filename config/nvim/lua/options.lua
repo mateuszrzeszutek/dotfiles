@@ -33,7 +33,7 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 
 -- completion
-vim.opt.completeopt = {'menuone', 'noselect', 'noinsert'}
+vim.opt.completeopt = { 'menuone', 'noselect', 'noinsert' }
 vim.opt.wildmenu = true
 
 vim.opt.wildignore = table.concat({
@@ -42,4 +42,3 @@ vim.opt.wildignore = table.concat({
   "*.o,*.so",
   "*.pyc"
 }, ',')
-

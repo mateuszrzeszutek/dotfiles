@@ -1,13 +1,11 @@
-local M = {}
-
-M.treesitter = { 'c' }
-
-M.lsp = { 'clangd' }
-
-M.setup = function(capabilities)
+local function setup(capabilities)
   vim.lsp.config('clangd', {
     capabilities = capabilities
   })
 end
 
-return M
+return {
+  treesitter = { 'c' },
+  lsp = { 'clangd' },
+  setup = setup
+}

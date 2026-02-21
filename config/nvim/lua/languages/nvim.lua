@@ -1,10 +1,4 @@
-local M = {}
-
-M.treesitter = {'lua', 'vim', 'vimdoc', 'query'}
-
-M.lsp = {'lua_ls'}
-
-M.setup = function (capabilities)
+local function setup(capabilities)
   vim.lsp.config('lua_ls', {
     capabilities = capabilities,
     settings = {
@@ -27,5 +21,8 @@ M.setup = function (capabilities)
   })
 end
 
-return M
-
+return {
+  treesitter = { 'lua', 'vim', 'vimdoc', 'query' },
+  lsp = { 'lua_ls' },
+  setup = setup
+}

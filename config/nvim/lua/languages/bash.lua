@@ -1,14 +1,11 @@
-local M = {}
-
-M.treesitter = {'bash'}
-
-M.lsp = {'bashls'}
-
-M.setup = function (capabilities)
+local function setup(capabilities)
   vim.lsp.config('bashls', {
     capabilities = capabilities
   })
 end
 
-return M
-
+return {
+  treesitter = { 'bash' },
+  lsp = { 'bashls' },
+  setup = setup
+}
