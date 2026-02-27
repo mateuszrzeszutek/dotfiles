@@ -12,17 +12,26 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 require('lazy').setup({
-  -- appearance
+  -- dark color theme
   { 'Shatur/neovim-ayu' },
+
+  -- bottom status line
   { 'nvim-lualine/lualine.nvim',          dependencies = { 'nvim-tree/nvim-web-devicons' } },
+
+  -- buffer tabs on top
   { 'akinsho/bufferline.nvim' },
+
+  -- shows indentation
   { 'lukas-reineke/indent-blankline.nvim' },
 
+  -- treesitter grammar parsers
   {
     'nvim-treesitter/nvim-treesitter',
     branch = 'main',
     build = ':TSUpdate'
   },
+
+  -- auto closes parentheses and such
   { 'windwp/nvim-autopairs' },
 
   -- fuzzy finder
@@ -44,13 +53,19 @@ require('lazy').setup({
   -- completion
   { 'hrsh7th/nvim-cmp' },
   { 'hrsh7th/cmp-nvim-lsp' },
-  -- snippets -- required for cmp
+  -- snippets, required for nvim-cmp
   { 'hrsh7th/vim-vsnip' },
   { 'hrsh7th/cmp-vsnip' },
 
+  -- git blame & line changes
   { 'lewis6991/gitsigns.nvim' },
+
+  -- better diagnostic (and others) windows
   { 'folke/trouble.nvim' },
 
   -- keymap help window
-  { 'folke/which-key.nvim' }
+  { 'folke/which-key.nvim' },
+
+  -- file tree
+  { 'nvim-tree/nvim-tree.lua' }
 })

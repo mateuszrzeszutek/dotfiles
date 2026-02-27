@@ -1,7 +1,7 @@
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ','
-
 local wk = require('which-key')
+local lsp = require('utils.lsp')
+local diag = require('utils.diagnostics')
+local tree = require('utils.nvim-tree')
 
 local function ngroup(lhs, group, proxy)
   wk.add({
@@ -27,6 +27,7 @@ local function setup()
   nmap('<leader>ff', ':Telescope find_files<cr>', 'Find files in workspace')
   nmap('<leader>fb', ':Telescope file_browser path=%:p:h select_buffer=true<cr>', 'Browse files in current directory')
   nmap('<leader>fB', ':Telescope file_browser<cr>', 'Browse files in workspace')
+  nmap('<leader>ft', tree.focus_or_toggle, 'Toggle file tree')
 
   ngroup('<leader>g', 'Git')
   nmap('<leader>gf', ':Telescope git_files<cr>', 'List files in git repository')
@@ -50,8 +51,28 @@ local function setup()
   vim.keymap.set('v', '>', '>gv')
 end
 
+local function setp_lsp_keymaps(buffer_id)
+  ngroup('<leader>l', 'LSP')
+  nmap('<leader>lf', vim.lsp.buf.format, 'Format buffer', buffer_id)
+  nmap('<leader>ld', ':Trouble diagnostics toggle<cr>', 'Toggle diagnostics window', buffer_id)
+  nmap('<leader>ls', ':Trouble symbols toggle<cr>', 'Toggle symbols window', buffer_id)
+  nmap('<leader>lr', ':Telescope lsp_references<cr>', 'Search for current symbol\'s references', buffer_id)
+  nmap('<leader>lS', ':Telescope lsp_dynamic_workspace_symbols<cr>', 'Search for symbols in workspace', buffer_id)
+
+  nmap('K', lsp.hover, 'Display information about current symbol', buffer_id)
+
+  nmap('[d', diag.prev_diagnostic, 'Previous diagnostic', buffer_id)
+  nmap(']d', diag.next_diagnostic, 'Next diagnostic', buffer_id)
+
+  nmap('<a-cr>', vim.lsp.buf.code_action, 'Code action', buffer_id)
+  nmap('<F2>', vim.lsp.buf.rename, 'Rename symbol', buffer_id)
+
+  nmap('gD', vim.lsp.buf.declaration, 'Go to declaration', buffer_id)
+  nmap('gd', vim.lsp.buf.definition, 'Go to definition', buffer_id)
+  nmap('gi', vim.lsp.buf.implementation, 'Go to implementation', buffer_id)
+end
+
 return {
-  ngroup = ngroup,
-  nmap = nmap,
-  setup = setup
+  setup = setup,
+  setup_lsp_keymaps = setp_lsp_keymaps
 }

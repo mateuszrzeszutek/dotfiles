@@ -10,6 +10,6 @@
 - [x] Add extra language servers to nvim (python, bash, ...)
 - [x] Fix the green color on git added files in nvim
 - [x] Setup which-key.nvim
-- [ ] Better nvim keybinds, UI (some Trouble keybinds?)
+- [x] Better nvim keybinds, UI (some Trouble keybinds?)
 - [ ] Nvim DAP support?
 - [ ] Look at the vim Java setups

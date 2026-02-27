@@ -17,6 +17,7 @@ vim.opt.showmatch = true
 vim.opt.matchtime = 2
 vim.opt.scrolloff = 5
 vim.opt.mouse = "a"
+vim.opt.termguicolors = true
 
 -- line breaks
 vim.opt.wrap = true
@@ -42,3 +43,11 @@ vim.opt.wildignore = table.concat({
   "*.o,*.so",
   "*.pyc"
 }, ',')
+
+-- disable netrw, file tree replaces that
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- leader keys
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ','

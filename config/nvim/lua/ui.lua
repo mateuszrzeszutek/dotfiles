@@ -66,3 +66,6 @@ telescope.load_extension('fzf')
 require('which-key').setup({
   preset = 'helix'
 })
+
+-- file tree
+require('nvim-tree').setup()
