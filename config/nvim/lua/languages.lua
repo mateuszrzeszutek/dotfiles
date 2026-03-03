@@ -3,6 +3,7 @@ local languages = {
   require('languages.c'),
   require('languages.fish'),
   require('languages.go'),
+  require('languages.java'),
   require('languages.nvim'),
   require('languages.python'),
   require('languages.rust'),
@@ -46,6 +47,9 @@ local k = require('keymap')
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
+    -- enable inlay (virtual text) hints by default
+    vim.lsp.inlay_hint.enable(true)
+
     k.setup_lsp_keymaps(ev.buf)
   end,
 })

@@ -44,6 +44,7 @@ require('lazy').setup({
     },
   },
   { 'nvim-telescope/telescope-file-browser.nvim' },
+  { 'nvim-telescope/telescope-ui-select.nvim' },
 
   -- LSP support
   { 'williamboman/mason.nvim' },
@@ -67,5 +68,8 @@ require('lazy').setup({
   { 'folke/which-key.nvim' },
 
   -- file tree
-  { 'nvim-tree/nvim-tree.lua' }
+  { 'nvim-tree/nvim-tree.lua' },
+
+  -- java language server support
+  { 'mfussenegger/nvim-jdtls' }
 })

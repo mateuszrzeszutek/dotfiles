@@ -1,15 +1,4 @@
-- [x] Refactor `_common.sh` scripts
-- [x] Add fish and starship
-- [x] Starship config
-- [x] Fish config
-- [x] Replace some of the zsh git aliases with git-level aliases
-- [x] Use fish abbreviations (`abbr -a name command`) instead of aliases/functions
-- [x] Clean up bash/zsh configs
-- [x] Replace sdkman with mise
-- [x] Split up nvim configs
-- [x] Add extra language servers to nvim (python, bash, ...)
-- [x] Fix the green color on git added files in nvim
-- [x] Setup which-key.nvim
-- [x] Better nvim keybinds, UI (some Trouble keybinds?)
-- [ ] Nvim DAP support?
+Nvim:
+- [ ] Running Java tests
+- [ ] DAP support for languages
 - [ ] Look at the vim Java setups

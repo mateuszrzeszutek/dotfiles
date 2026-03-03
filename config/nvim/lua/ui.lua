@@ -61,6 +61,7 @@ telescope.setup({
   },
 })
 telescope.load_extension('fzf')
+telescope.load_extension('ui-select')
 
 -- keymap help window
 require('which-key').setup({
