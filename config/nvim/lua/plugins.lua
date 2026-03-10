@@ -58,6 +58,9 @@ require('lazy').setup({
   { 'hrsh7th/vim-vsnip' },
   { 'hrsh7th/cmp-vsnip' },
 
+  -- debug adapter protocol
+  {'mfussenegger/nvim-dap'},
+
   -- git blame & line changes
   { 'lewis6991/gitsigns.nvim' },
 

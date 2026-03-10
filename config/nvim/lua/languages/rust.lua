@@ -18,7 +18,8 @@ local function setup(capabilities)
 
       set_tab_length(4)
 
-      vim.keymap.set('n', '<leader>ct', ':RustTest!<cr>', opts)
+      vim.keymap.set('n', '<leader>lt', ':RustTest<cr>', opts)
+      vim.keymap.set('n', '<leader>lT', ':RustTest!<cr>', opts)
     end
   })
 end

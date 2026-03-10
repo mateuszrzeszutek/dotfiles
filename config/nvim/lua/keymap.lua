@@ -15,6 +15,12 @@ local function nmap(lhs, rhs, desc, buffer)
   })
 end
 
+local function xmap(lhs, rhs, desc, buffer)
+  wk.add({
+    { lhs, rhs, desc = desc, mode = 'x', buffer = buffer }
+  })
+end
+
 local function setup()
   vim.keymap.set('n', '<esc>', '<esc>:noh<cr>')
 
@@ -51,20 +57,24 @@ local function setup()
   vim.keymap.set('v', '>', '>gv')
 end
 
-local function setp_lsp_keymaps(buffer_id)
+local function setup_general_lsp(buffer_id)
   ngroup('<leader>l', 'LSP')
   nmap('<leader>lf', vim.lsp.buf.format, 'Format buffer', buffer_id)
   nmap('<leader>ld', ':Trouble diagnostics toggle<cr>', 'Toggle diagnostics window', buffer_id)
   nmap('<leader>ls', ':Trouble symbols toggle<cr>', 'Toggle symbols window', buffer_id)
   nmap('<leader>lr', ':Telescope lsp_references<cr>', 'Search for current symbol\'s references', buffer_id)
   nmap('<leader>lS', ':Telescope lsp_dynamic_workspace_symbols<cr>', 'Search for symbols in workspace', buffer_id)
+  nmap('<leader>lh', lsp.toggle_inlay_hints, 'Toggle inlay hints', buffer_id)
 
   nmap('K', lsp.hover, 'Display information about current symbol', buffer_id)
 
   nmap('[d', diag.prev_diagnostic, 'Previous diagnostic', buffer_id)
   nmap(']d', diag.next_diagnostic, 'Next diagnostic', buffer_id)
 
+  -- todo this could be lang-specific
   nmap('<a-cr>', vim.lsp.buf.code_action, 'Code action', buffer_id)
+  xmap('<a-cr>', vim.lsp.buf.code_action, 'Code action', buffer_id)
+
   nmap('<F2>', vim.lsp.buf.rename, 'Rename symbol', buffer_id)
 
   nmap('gD', vim.lsp.buf.declaration, 'Go to declaration', buffer_id)
@@ -74,5 +84,5 @@ end
 
 return {
   setup = setup,
-  setup_lsp_keymaps = setp_lsp_keymaps
+  setup_general_lsp = setup_general_lsp
 }

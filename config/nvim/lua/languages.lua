@@ -50,7 +50,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- enable inlay (virtual text) hints by default
     vim.lsp.inlay_hint.enable(true)
 
-    k.setup_lsp_keymaps(ev.buf)
+    k.setup_general_lsp(ev.buf)
   end,
 })
 
@@ -85,3 +85,6 @@ cmp.setup({
     }
   )
 })
+
+-- debug
+require('dap')
