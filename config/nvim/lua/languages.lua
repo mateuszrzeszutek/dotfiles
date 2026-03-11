@@ -22,9 +22,7 @@ require('nvim-treesitter').install(treesitter_parsers)
 -- language servers
 local lsp_servers = {}
 for _, l in pairs(languages) do
-  for _, p in pairs(l.lsp) do
-    table.insert(lsp_servers, p)
-  end
+  vim.list_extend(lsp_servers, l.lsp)
 end
 
 require('mason').setup()
@@ -43,14 +41,9 @@ end
 require('nvim-autopairs').setup()
 
 -- lsp keybinds
-local k = require('keymap')
-
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
-    -- enable inlay (virtual text) hints by default
-    vim.lsp.inlay_hint.enable(true)
-
-    k.setup_general_lsp(ev.buf)
+    require('keymap').setup_general_lsp(ev.buf)
   end,
 })
 
@@ -88,3 +81,15 @@ cmp.setup({
 
 -- debug
 require('dap')
+
+-- tests
+local neotest_adapters = {}
+for _, l in pairs(languages) do
+  if l.neotest then
+    table.insert(neotest_adapters, l.neotest)
+  end
+end
+
+require('neotest').setup({
+  adapters = neotest_adapters
+})

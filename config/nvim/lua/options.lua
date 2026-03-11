@@ -18,6 +18,7 @@ vim.opt.matchtime = 2
 vim.opt.scrolloff = 5
 vim.opt.mouse = "a"
 vim.opt.termguicolors = true
+vim.o.winborder = 'rounded'
 
 -- line breaks
 vim.opt.wrap = true

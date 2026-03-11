@@ -4,22 +4,13 @@ local function set_tab_length(tab_length)
   vim.opt_local.softtabstop = tab_length
 end
 
-local function setup(capabilities)
-  vim.lsp.config('rust_analyzer', {
-    capabilities = capabilities,
-  })
-
+local function setup()
   vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     pattern = {
       "*.rs"
     },
-    callback = function(ev)
-      local opts = { buffer = ev.buf }
-
+    callback = function()
       set_tab_length(4)
-
-      vim.keymap.set('n', '<leader>lt', ':RustTest<cr>', opts)
-      vim.keymap.set('n', '<leader>lT', ':RustTest!<cr>', opts)
     end
   })
 end
@@ -27,5 +18,6 @@ end
 return {
   treesitter = { 'rust', 'toml' },
   lsp = { 'rust_analyzer' },
+  neotest = require('rustaceanvim.neotest'),
   setup = setup
 }

@@ -1,7 +1,4 @@
 local wk = require('which-key')
-local lsp = require('utils.lsp')
-local diag = require('utils.diagnostics')
-local tree = require('utils.nvim-tree')
 
 local function ngroup(lhs, group, proxy)
   wk.add({
@@ -33,7 +30,7 @@ local function setup()
   nmap('<leader>ff', ':Telescope find_files<cr>', 'Find files in workspace')
   nmap('<leader>fb', ':Telescope file_browser path=%:p:h select_buffer=true<cr>', 'Browse files in current directory')
   nmap('<leader>fB', ':Telescope file_browser<cr>', 'Browse files in workspace')
-  nmap('<leader>ft', tree.focus_or_toggle, 'Toggle file tree')
+  nmap('<leader>ft', require('utils.nvim-tree').focus_or_toggle, 'Toggle file tree')
 
   ngroup('<leader>g', 'Git')
   nmap('<leader>gf', ':Telescope git_files<cr>', 'List files in git repository')
@@ -58,6 +55,8 @@ local function setup()
 end
 
 local function setup_general_lsp(buffer_id)
+  local lsp = require('utils.lsp')
+
   ngroup('<leader>l', 'LSP')
   nmap('<leader>lf', vim.lsp.buf.format, 'Format buffer', buffer_id)
   nmap('<leader>ld', ':Trouble diagnostics toggle<cr>', 'Toggle diagnostics window', buffer_id)
@@ -68,10 +67,10 @@ local function setup_general_lsp(buffer_id)
 
   nmap('K', lsp.hover, 'Display information about current symbol', buffer_id)
 
+  local diag = require('utils.diagnostics')
   nmap('[d', diag.prev_diagnostic, 'Previous diagnostic', buffer_id)
   nmap(']d', diag.next_diagnostic, 'Next diagnostic', buffer_id)
 
-  -- todo this could be lang-specific
   nmap('<a-cr>', vim.lsp.buf.code_action, 'Code action', buffer_id)
   xmap('<a-cr>', vim.lsp.buf.code_action, 'Code action', buffer_id)
 
@@ -80,6 +79,15 @@ local function setup_general_lsp(buffer_id)
   nmap('gD', vim.lsp.buf.declaration, 'Go to declaration', buffer_id)
   nmap('gd', vim.lsp.buf.definition, 'Go to definition', buffer_id)
   nmap('gi', vim.lsp.buf.implementation, 'Go to implementation', buffer_id)
+
+  local neotest = require('neotest')
+  local run_all_tests_in_file = function() neotest.run.run(vim.fn.expand("%")) end
+  ngroup('<leader>t', 'Tests')
+  nmap('<leader>tt', neotest.run.run, 'Run nearest test', buffer_id)
+  nmap('<leader>tT', run_all_tests_in_file, 'Run all tests in current file', buffer_id)
+  nmap('<leader>ts', neotest.run.stop, 'Stop running tests', buffer_id)
+  nmap('<leader>to', neotest.output_panel.toggle, 'Toggle test output', buffer_id)
+  nmap('<leader>tO', neotest.summary.toggle, 'Toggle test summary', buffer_id)
 end
 
 return {

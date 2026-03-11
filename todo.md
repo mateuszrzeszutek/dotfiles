@@ -4,4 +4,4 @@ Nvim:
 - [ ] DAP support for languages
 - [ ] Look at the vim Java setups
 - [ ] See rustaceanvim
-- [ ] neotest for tests?
+- [x] neotest for tests?

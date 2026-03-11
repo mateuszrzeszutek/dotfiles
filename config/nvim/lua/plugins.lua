@@ -59,7 +59,17 @@ require('lazy').setup({
   { 'hrsh7th/cmp-vsnip' },
 
   -- debug adapter protocol
-  {'mfussenegger/nvim-dap'},
+  { 'mfussenegger/nvim-dap' },
+
+  -- generic test runner
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+    }
+  },
 
   -- git blame & line changes
   { 'lewis6991/gitsigns.nvim' },
@@ -74,5 +84,10 @@ require('lazy').setup({
   { 'nvim-tree/nvim-tree.lua' },
 
   -- java language server support
-  { 'mfussenegger/nvim-jdtls' }
-})
+  { 'mfussenegger/nvim-jdtls' },
+  -- java test runner
+  { 'rcasia/neotest-java' },
+
+  -- rust support
+  { 'mrcjkb/rustaceanvim' }
+  })
