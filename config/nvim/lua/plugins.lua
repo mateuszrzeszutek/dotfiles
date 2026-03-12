@@ -90,4 +90,4 @@ require('lazy').setup({
 
   -- rust support
   { 'mrcjkb/rustaceanvim' }
-  })
+})

@@ -10,6 +10,8 @@ vim.opt.smartcase = true
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
+vim.opt.foldmethod = 'marker'
+
 -- appearance
 vim.opt.number = true
 vim.opt.ruler = true
@@ -18,7 +20,7 @@ vim.opt.matchtime = 2
 vim.opt.scrolloff = 5
 vim.opt.mouse = "a"
 vim.opt.termguicolors = true
-vim.o.winborder = 'rounded'
+vim.opt.winborder = 'rounded'
 
 -- line breaks
 vim.opt.wrap = true

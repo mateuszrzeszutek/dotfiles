@@ -9,8 +9,11 @@ local function setup()
     pattern = {
       "*.rs"
     },
-    callback = function()
+    callback = function(ev)
       set_tab_length(4)
+
+      local k = require('keymap')
+      k.nmap('<leader>lR', ':RustLsp run', 'Run executable', ev.buf)
     end
   })
 end
