@@ -1,6 +1,5 @@
-local mason = require('mason-registry')
-
 local function ensure_installed(pkg_names)
+  local mason = require('mason-registry')
   mason.refresh(function()
     for _, pkg_name in ipairs(pkg_names) do
       local p = mason.get_package(pkg_name)

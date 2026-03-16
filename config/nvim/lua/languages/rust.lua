@@ -20,7 +20,7 @@ end
 
 return {
   treesitter = { 'rust', 'toml' },
-  lsp = { 'rust_analyzer' },
+  lsp = {}, -- rust-analyzer provided by mise
   neotest = require('rustaceanvim.neotest'),
   setup = setup
 }

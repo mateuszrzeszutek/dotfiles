@@ -1,3 +1,4 @@
 [tools]
 java = '21'
 rust = 'latest'
+rust-analyzer = 'latest'

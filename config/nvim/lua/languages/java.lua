@@ -1,5 +1,4 @@
 local function setup(capabilities)
-  local jdtls = require('jdtls')
   local mason = require('utils.mason')
 
   mason.ensure_installed({ 'java-debug-adapter', 'java-test' })
@@ -25,8 +24,9 @@ local function setup(capabilities)
     },
     callback = function(ev)
       local opts = { buffer = ev.buf }
+      local jdtls = require('jdtls')
 
-      -- TODO: dap is required
+      -- TODO: neotest integration
       vim.keymap.set('n', '<leader>lt', jdtls.test_nearest_method, opts)
       vim.keymap.set('n', '<leader>lT', jdtls.test_class, opts)
     end
