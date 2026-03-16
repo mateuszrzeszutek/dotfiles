@@ -1,17 +1,22 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.uv.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "--single-branch",
-    "https://github.com/folke/lazy.nvim.git",
-    lazypath,
-  })
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out,                            "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
 vim.opt.runtimepath:prepend(lazypath)
 
 require('lazy').setup({
+  lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json",
+
   -- dark color theme
   { 'Shatur/neovim-ayu' },
 
@@ -27,7 +32,9 @@ require('lazy').setup({
   -- treesitter grammar parsers
   {
     'nvim-treesitter/nvim-treesitter',
-    branch = 'main',
+    -- nvim-treesitter people went nuts and are requiring nightly version of nvim
+    commit = '4110daee15fdf1a2030a2c989e6f240b31d6f5e6',
+    pin = true,
     build = ':TSUpdate'
   },
 
@@ -87,7 +94,7 @@ require('lazy').setup({
   -- java language server support
   { 'mfussenegger/nvim-jdtls' },
   -- java test runner
-  { 'rcasia/neotest-java' },
+  { 'andrewyazura/neotest-gradle' },
 
   -- rust support
   { 'mrcjkb/rustaceanvim' }

@@ -36,6 +36,6 @@ end
 return {
   treesitter = { 'java' },
   lsp = { 'jdtls' },
-  neotest = require('neotest-java'),
+  neotest = require('neotest-gradle'),
   setup = setup
 }

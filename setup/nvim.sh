@@ -32,6 +32,7 @@ install_fonts() {
 configure_nvim() {
   echo_yellow ">>> Configuring nvim ..."
   link_config "$BASEDIR/config/nvim/init.lua" "$HOME/.config/nvim/init.lua"
+  link_config "$BASEDIR/config/nvim/lazy-lock.json" "$HOME/.config/nvim/lazy-lock.json"
   link_config "$BASEDIR/config/nvim/lua" "$HOME/.config/nvim/lua"
 }
 
