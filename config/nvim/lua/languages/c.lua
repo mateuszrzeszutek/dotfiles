@@ -1,6 +1,7 @@
 local function setup(capabilities)
   vim.lsp.config('clangd', {
-    capabilities = capabilities
+    capabilities = capabilities,
+    cmd = { 'clangd', '--enable-config' }
   })
 end
 
