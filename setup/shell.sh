@@ -2,6 +2,9 @@
 
 source "$BASEDIR/setup/_common.sh"
 
+# Deps
+source "$BASEDIR/setup/fonts.sh"
+
 configure_bash() {
   echo_yellow ">>> Configuring bash ..."
   link_config "$BASEDIR/config/shell/bashrc.sh" "$HOME/.bashrc"

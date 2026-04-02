@@ -2,6 +2,9 @@
 
 source "$BASEDIR/setup/_common.sh"
 
+# Deps
+source "$BASEDIR/setup/fonts.sh"
+
 install_yazi() {
   echo_yellow ">>> Installing yazi ..."
   dnf_enable lihaohong/yazi && dnf_install yazi
