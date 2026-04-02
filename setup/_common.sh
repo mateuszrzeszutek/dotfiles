@@ -27,7 +27,6 @@ flatpak_install() {
     if (is_not_executable flatpak)
     then
       echo_yellow ">>> Installing flatpak ..."
-      apt_install flatpak
       dnf_install flatpak
     fi
     if (! flatpak remotes | grep flathub >/dev/null)
@@ -37,13 +36,6 @@ flatpak_install() {
     fi
 
     flatpak install "$@"
-  fi
-}
-
-apt_install() {
-  if (is_executable apt-get)
-  then
-    sudo apt-get install -y "$@"
   fi
 }
 
@@ -77,7 +69,7 @@ url_script_install() {
 link_config() {
   local src=$1
   local dst=$2
-  mkdir -p "$(dirname $dst)"
+  mkdir -p "$(dirname "$dst")"
   if [[ -e "$dst" ]]
   then
     rm -rf "$dst"
@@ -86,10 +78,10 @@ link_config() {
 }
 
 is_executable () {
-  [[ ! -z `command -v $1` ]] && return 0 || return 1
+  [[ ! -z $(command -v "$1") ]] && return 0 || return 1
 }
 is_not_executable () {
-  [[ -z `command -v $1` ]] && return 0 || return 1
+  [[ -z $(command -v "$1") ]] && return 0 || return 1
 }
 
 is_macos () {

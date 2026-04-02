@@ -1,5 +1,4 @@
 set -gx EDITOR "nvim"
-set -gx GUI_EDITOR "nvim-qt"
 
 # Fix GPG on MacOS
 if test -z "$GPG_TTY"

@@ -52,3 +52,8 @@ if [[ -f "/opt/homebrew/bin/brew" ]]
 then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
+
+if (command -v mise >/dev/null)
+then
+  eval "$(mise activate bash)"
+fi

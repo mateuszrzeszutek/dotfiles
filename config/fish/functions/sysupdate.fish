@@ -1,26 +1,18 @@
-function sysupdate
-  if command -v apt-get >/dev/null
-    sudo apt-get -y update
-    sudo apt-get -y upgrade
-    sudo apt-get -y dist-upgrade
-  end
-  if command -v brew >/dev/null
-    ulimit -Sn 65536 #need more file descriptors for brew
-    brew update && brew outdated && brew upgrade
-  end
-  if command -v dnf >/dev/null
-    sudo dnf upgrade -y
-  end
-  if command -v flatpak >/dev/null
-    flatpak update -y
-  end
-  if command -v mise >/dev/null
-    mise upgrade
-  end
-  if command -v pacman >/dev/null
-    sudo pacman --noconfirm -Syu
-  end
-  if command -v ya >/dev/null
-    ya pkg upgrade
-  end
+function __update_kitty
+  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin \
+    launch=n
+end
+
+function __has -a executable
+  return (command -v "$executable" >/dev/null)
+end
+
+function sysupdate --description "Update all system packages"
+  __has brew    && brew update && brew outdated && brew upgrade
+  __has dnf     && sudo dnf upgrade -y
+  __has flatpak && flatpak update -y
+  __has kitty   && test "$(uname)" = "Linux" && __update_kitty
+  __has mise    && mise upgrade
+  __has pacman  && sudo pacman --noconfirm -Syu
+  __has ya      && ya pkg upgrade
 end

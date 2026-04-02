@@ -30,7 +30,6 @@ install_syncthing() {
   echo_yellow ">>> Installing Syncthing ..."
   brew_install syncthing
   dnf_install syncthing
-  apt_install syncthing
 
   echo_yellow ">>> Starting Syncthing service ..."
   if is_macos
