@@ -1,101 +1,96 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out,                            "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
+local function gh(name)
+  return {
+    src = 'https://github.com/' .. name
+  }
 end
-vim.opt.runtimepath:prepend(lazypath)
 
-require('lazy').setup({
-  lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json",
+vim.api.nvim_create_autocmd('PackChanged', {
+  callback = function(ev)
+    local name, kind = ev.data.spec.name, ev.data.kind
+    if kind ~= 'update' and kind ~= 'insert' then
+      return
+    end
+    if name == 'nvim-treesitter' then
+      if not ev.data.active then vim.cmd.packadd('nvim-treesitter') end
+      vim.cmd('TSUpdate')
+    end
+    if name == 'telescope-fzf-native.nvim' then
+      vim.system({ 'make' }, { cwd = ev.data.path })
+    end
+  end
+})
 
+vim.pack.add({
   -- dark color theme
-  { 'Shatur/neovim-ayu' },
+  gh('Shatur/neovim-ayu'),
 
   -- bottom status line
-  { 'nvim-lualine/lualine.nvim',          dependencies = { 'nvim-tree/nvim-web-devicons' } },
+  gh('nvim-lualine/lualine.nvim'),
+  -- dep: nerd font icons
+  gh('nvim-tree/nvim-web-devicons'),
 
   -- buffer tabs on top
-  { 'akinsho/bufferline.nvim' },
+  gh('akinsho/bufferline.nvim'),
 
   -- shows indentation
-  { 'lukas-reineke/indent-blankline.nvim' },
+  gh('lukas-reineke/indent-blankline.nvim'),
 
   -- treesitter grammar parsers
-  {
-    'nvim-treesitter/nvim-treesitter',
-    -- nvim-treesitter people went nuts and are requiring nightly version of nvim
-    commit = '4110daee15fdf1a2030a2c989e6f240b31d6f5e6',
-    pin = true,
-    build = ':TSUpdate'
-  },
+  gh('nvim-treesitter/nvim-treesitter'),
 
   -- auto closes parentheses and such
-  { 'windwp/nvim-autopairs' },
+  gh('windwp/nvim-autopairs'),
 
   -- fuzzy finder
-  {
-    'nvim-telescope/telescope.nvim',
-    branch = 'master',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-    },
-  },
-  { 'nvim-telescope/telescope-file-browser.nvim' },
-  { 'nvim-telescope/telescope-ui-select.nvim' },
+  gh('nvim-telescope/telescope.nvim'),
+  gh('nvim-telescope/telescope-fzf-native.nvim'),
+  gh('nvim-telescope/telescope-file-browser.nvim'),
+  gh('nvim-telescope/telescope-ui-select.nvim'),
+  -- dep: function library
+  gh('nvim-lua/plenary.nvim'),
 
   -- LSP support
-  { 'williamboman/mason.nvim' },
-  { 'williamboman/mason-lspconfig.nvim' },
-  { 'neovim/nvim-lspconfig' },
+  gh('williamboman/mason.nvim'),
+  gh('williamboman/mason-lspconfig.nvim'),
+  gh('neovim/nvim-lspconfig'),
 
   -- completion
-  { 'hrsh7th/nvim-cmp' },
-  { 'hrsh7th/cmp-nvim-lsp' },
-  { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+  gh('hrsh7th/nvim-cmp'),
+  gh('hrsh7th/cmp-nvim-lsp'),
+  gh('hrsh7th/cmp-nvim-lsp-signature-help'),
   -- snippets, required for nvim-cmp
-  { 'hrsh7th/vim-vsnip' },
-  { 'hrsh7th/cmp-vsnip' },
+  gh('hrsh7th/vim-vsnip'),
+  gh('hrsh7th/cmp-vsnip'),
 
   -- debug adapter protocol
-  { 'mfussenegger/nvim-dap' },
+  gh('mfussenegger/nvim-dap'),
 
   -- generic test runner
-  {
-    "nvim-neotest/neotest",
-    dependencies = {
-      "nvim-neotest/nvim-nio",
-      "nvim-lua/plenary.nvim",
-      "antoinemadec/FixCursorHold.nvim",
-    }
-  },
+  gh("nvim-neotest/neotest"),
+  gh("nvim-neotest/nvim-nio"),
+  gh("antoinemadec/FixCursorHold.nvim"),
 
   -- git blame & line changes
-  { 'lewis6991/gitsigns.nvim' },
+  gh('lewis6991/gitsigns.nvim'),
 
   -- better diagnostic (and others) windows
-  { 'folke/trouble.nvim' },
+  gh('folke/trouble.nvim'),
 
   -- keymap help window
-  { 'folke/which-key.nvim' },
+  gh('folke/which-key.nvim'),
 
   -- file tree
-  { 'nvim-tree/nvim-tree.lua' },
+  gh('nvim-tree/nvim-tree.lua'),
 
   -- java language server support
-  { 'mfussenegger/nvim-jdtls' },
+  gh('mfussenegger/nvim-jdtls'),
   -- java test runner
-  { 'andrewyazura/neotest-gradle' },
+  gh('andrewyazura/neotest-gradle'),
 
   -- rust support
-  { 'mrcjkb/rustaceanvim' }
+  gh('mrcjkb/rustaceanvim')
 })
+
+vim.api.nvim_create_user_command('PackUpdate', function()
+  vim.pack.update()
+end, {});

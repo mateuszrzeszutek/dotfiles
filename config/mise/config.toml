@@ -1,4 +1,6 @@
 [tools]
-java = '21'
-rust = 'latest'
-rust-analyzer = 'latest'
+java = "25"
+neovim = "latest"
+rust = "latest"
+rust-analyzer = "latest"
+tree-sitter = "latest"
