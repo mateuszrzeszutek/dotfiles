@@ -58,9 +58,6 @@ vim.pack.add({
   gh('hrsh7th/nvim-cmp'),
   gh('hrsh7th/cmp-nvim-lsp'),
   gh('hrsh7th/cmp-nvim-lsp-signature-help'),
-  -- snippets, required for nvim-cmp
-  gh('hrsh7th/vim-vsnip'),
-  gh('hrsh7th/cmp-vsnip'),
 
   -- debug adapter protocol
   gh('mfussenegger/nvim-dap'),

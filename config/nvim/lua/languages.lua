@@ -37,9 +37,6 @@ for _, l in pairs(languages) do
   l.setup(capabilities)
 end
 
--- simple autoclose brackets/parens/etc
-require('nvim-autopairs').setup()
-
 -- lsp keybinds
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
@@ -47,12 +44,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
+-- simple autoclose brackets/parens/etc
+require('nvim-autopairs').setup()
+
 -- completion
 local cmp = require('cmp')
 cmp.setup({
   snippet = {
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
+      vim.snippet.expand(args.body)
     end,
   },
   window = {
@@ -70,15 +70,18 @@ cmp.setup({
   }),
   sources = cmp.config.sources(
     {
-      { name = 'nvim_lsp', keyword_length = 2 },
+      { name = 'nvim_lsp',               keyword_length = 2 },
       { name = 'nvim_lsp_signature_help' },
-      { name = 'vsnip' },
     },
     {
       { name = 'buffer' },
     }
   )
 })
+
+-- complete parentheses
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
 -- debug
 require('dap')
