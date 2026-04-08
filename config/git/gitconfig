@@ -23,8 +23,9 @@ st  = status
 sta = git stash
 stl = git stash list
 stp = git stash pop
-
 tag = tag -s
+
+review = "!f() { git fetch origin pull/$1/head:pr/$1; }; f"
 
 [branch]
 sort = -committerdate
@@ -35,9 +36,8 @@ ui = true
 [column]
 ui = auto
 
-# depends on the workstation, really
-#[commit]
-#gpgsign = true
+[commit]
+gpgsign = true
 
 [credential]
 helper = cache

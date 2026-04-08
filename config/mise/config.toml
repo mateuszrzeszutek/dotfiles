@@ -1,6 +1,8 @@
 [tools]
+gradle = "9"
 java = "25"
 neovim = "latest"
 rust = "latest"
 rust-analyzer = "latest"
 tree-sitter = "latest"
+usage = "latest"

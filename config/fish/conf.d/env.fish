@@ -6,6 +6,9 @@ if test -z "$GPG_TTY"
 end
 
 fish_add_path -g --path "$HOME/.local/bin"
+if test -d "$HOME/.local/share/pnpm"
+  fish_add_path -g --path "$HOME/.local/share/pnpm"
+end
 
 if test -f "/opt/homebrew/bin/brew"
   /opt/homebrew/bin/brew shellenv fish | source
