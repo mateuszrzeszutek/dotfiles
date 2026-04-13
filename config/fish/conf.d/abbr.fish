@@ -11,6 +11,7 @@ if status is-interactive
   abbr -a gcp  git cherry-pick
   abbr -a gdh  git diff HEAD
   abbr -a gf   git fetch
+  abbr -a gfe  git fetch
   abbr -a gl   git pull
   abbr -a glf  git ls-files
   abbr -a glol git lol

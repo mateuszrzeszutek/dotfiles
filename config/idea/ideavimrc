@@ -1,0 +1,89 @@
+"Plugins {{{
+set which-key
+let g:WhichKey_ShowVimActions = "true"
+"}}}
+
+" Options {{{
+set ignorecase
+
+set hlsearch
+set incsearch
+
+" don't timeout which-key
+set notimeout
+" }}}
+
+" Keymaps {{{
+let mapleader=" "
+
+" General
+nnoremap <esc> <esc>:noh<cr>
+vnoremap < <gv
+vnoremap > >gv
+
+let g:WhichKeyDesc_reloadConfig = "<leader>vs Reload IdeaVim config"
+nnoremap <leader>vs :source ~/.ideavimrc<cr>
+
+let g:WhichKeyDesc_quit = "<leader>q Quit"
+nnoremap <leader>q :q<cr>
+let g:WhichKeyDesc_grep = "<leader>/ Grep files in workspace"
+map <leader>/ <Action>(FindInPath)
+
+" Files
+let g:WhichKeyDesc_file = "<leader>f Files"
+let g:WhichKeyDesc_file_write = "<leader>fw Write current file"
+nnoremap <leader>fw :w<cr>
+let g:WhichKeyDesc_file_find = "<leader>ff Find files in workspace"
+map <leader>ff <Action>(GotoFile)
+
+" Git
+let g:WhichKeyDesc_git = "<leader>g Git"
+let g:WhichKeyDesc_git_branches = "<leader>gb List git branches"
+map <leader>gb <Action>(Git.Branches)
+let g:WhichKeyDesc_git_blame = "<leader>gB Toggle git blame"
+map <leader>gB <Action>(Annotate)
+
+" Windows
+let g:WhichKeyDesc_windows = "<leader>w Windows"
+let g:WhichKeyDesc_windows_split = "<leader>ws Split windows horizontally"
+nnoremap <leader>ws :split<cr>
+let g:WhichKeyDesc_windows_vsplit = "<leader>wv Split windows vertically"
+nnoremap <leader>wv :vsplit<cr>
+let g:WhichKeyDesc_windows_left = "<leader>wh Go to the left window"
+nnoremap <leader>wh <c-w>h
+let g:WhichKeyDesc_windows_down = "<leader>wj Go to the down window"
+nnoremap <leader>wj <c-w>j
+let g:WhichKeyDesc_windows_up = "<leader>wk Go to the up window"
+nnoremap <leader>wk <c-w>k
+let g:WhichKeyDesc_windows_right = "<leader>wl Go to the right window"
+nnoremap <leader>wl <c-w>l
+
+" Coding
+let g:WhichKeyDesc_code = "<leader>l Code"
+let g:WhichKeyDesc_code_format = "<leader>lf Format buffer"
+map <leader>lf <Action>(ReformatCode)
+let g:WhichKeyDesc_code_references = "<leader>lf Search for current symbol's references"
+map <leader>lr <Action>(FindUsages)
+let g:WhichKeyDesc_code_structure = "<leader>lf Show structure popup"
+map <leader>ls <Action>(FileStructurePopup)
+let g:WhichKeyDesc_code_structure = "<leader>lf Search for symbols in workspace"
+map <leader>lS <Action>(GotoSymbol)
+
+let g:WhichKeyDesc_code_rename = "<F2> Rename symbol"
+map <F2> <Action>(RenameElement)
+
+let g:WhichKeyDesc_code_declaration = "gd Go to declaration"
+map gd <Action>(GotoDeclaration)
+let g:WhichKeyDesc_code_definition = "gD Go to definition"
+map gD <Action>(GotoDeclaration)
+let g:WhichKeyDesc_code_implementation = "gi Go to implementation"
+map gi <Action>(GotoImplementation)
+
+" Tests
+let g:WhichKeyDesc_tests = "<leader>t Tests"
+let g:WhichKeyDesc_tests_run = "<leader>tt Run all tests in the current class"
+map <leader>tt <Action>(RunClass)
+let g:WhichKeyDesc_tests_runAll = "<leader>tT Run all tests in the current class"
+map <leader>tT <Action>(RunClass)
+" }}}
+

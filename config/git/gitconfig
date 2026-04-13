@@ -13,6 +13,7 @@ co  = checkout
 cp  = cherry-pick
 dh  = diff HEAD
 f   = fetch
+fe  = fetch
 l   = pull
 lf  = ls-files
 lol = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
