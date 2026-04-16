@@ -7,3 +7,4 @@ Nvim:
 - [x] neotest for tests?
 - [ ] better nvim-cmp setup
 - [ ] take another look at nvim options, document what's here already
+- [ ] perhaps change the language split into ftplugins?

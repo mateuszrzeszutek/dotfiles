@@ -1,6 +1,8 @@
 "Plugins {{{
 set which-key
 let g:WhichKey_ShowVimActions = "true"
+
+set commentary
 "}}}
 
 " Options {{{

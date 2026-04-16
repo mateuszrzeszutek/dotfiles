@@ -23,6 +23,6 @@ end
 
 return {
   treesitter = { 'lua', 'vim', 'vimdoc', 'query' },
-  lsp = { 'vim-language-server', 'lua_ls' },
+  lsp = { 'vimls', 'lua_ls' },
   setup = setup
 }
