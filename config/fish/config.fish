@@ -10,3 +10,8 @@ if status is-interactive
 
   fish_vi_key_bindings
 end
+
+set --local local_fish_config "$HOME/.config/fish/config.local.fish"
+if test -f "$local_fish_config"
+  source "$local_fish_config"
+end

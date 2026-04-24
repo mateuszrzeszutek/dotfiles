@@ -11,6 +11,7 @@ configure_nvim() {
   link_config "$BASEDIR/config/nvim/init.lua" "$HOME/.config/nvim/init.lua"
   link_config "$BASEDIR/config/nvim/nvim-pack-lock.json" "$HOME/.config/nvim/nvim-pack-lock.json"
   link_config "$BASEDIR/config/nvim/lua" "$HOME/.config/nvim/lua"
+  link_config "$BASEDIR/config/nvim/ftplugin" "$HOME/.config/nvim/ftplugin"
 }
 
 configure_nvim
