@@ -3,7 +3,7 @@
 source "$BASEDIR/setup/_common.sh"
 
 install_fonts() {
-  echo ">>> Installing modded DejaVu Sans Mono fonts ..."
+  echo_yellow ">>> Installing modded DejaVu Sans Mono fonts ..."
   if (is_macos)
   then
     brew_install font-dejavu-sans-mono-nerd-font
