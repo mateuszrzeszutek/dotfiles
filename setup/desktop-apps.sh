@@ -26,6 +26,12 @@ install_obsidian() {
   flatpak_install "md.obsidian.Obsidian"
 }
 
+install_spotify() {
+  echo_yellow ">>> Installing Spotify ..."
+  brew_install obsidian
+  flatpak_install "com.spotify.Client"
+}
+
 install_syncthing() {
   echo_yellow ">>> Installing Syncthing ..."
   brew_install syncthing
