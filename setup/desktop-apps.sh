@@ -28,7 +28,7 @@ install_obsidian() {
 
 install_spotify() {
   echo_yellow ">>> Installing Spotify ..."
-  brew_install obsidian
+  brew_install spotify
   flatpak_install "com.spotify.Client"
 }
 
