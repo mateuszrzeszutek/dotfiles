@@ -60,8 +60,8 @@ local function setup_general_lsp(buffer_id)
   wk.add {
     ngroup('<leader>l', 'LSP'),
     nmap('<leader>lf', vim.lsp.buf.format, 'Format buffer', buffer_id),
-    nmap('<leader>ld', ':Trouble diagnostics toggle<cr>', 'Toggle diagnostics window', buffer_id),
-    nmap('<leader>ls', ':Trouble symbols toggle<cr>', 'Toggle symbols window', buffer_id),
+    nmap('<leader>ld', ':Trouble diagnostics toggle focus=true<cr>', 'Toggle diagnostics window', buffer_id),
+    nmap('<leader>ls', ':Trouble symbols toggle focus=true<cr>', 'Toggle symbols window', buffer_id),
     nmap('<leader>lr', ':Telescope lsp_references<cr>', 'Search for current symbol\'s references', buffer_id),
     nmap('<leader>lS', ':Telescope lsp_dynamic_workspace_symbols<cr>', 'Search for symbols in workspace', buffer_id),
     nmap('<leader>lh', lsp.toggle_inlay_hints, 'Toggle inlay hints', buffer_id),

@@ -21,6 +21,7 @@ $gradle\
 $package\
 $line_break\
 $jobs\
+$shell\
 $character
 """
 
@@ -71,6 +72,14 @@ format = '\[[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)\]'
 
 [rust]
 format = '\[[$symbol($version)]($style)\]'
+
+[shell]
+disabled = false
+fish_indicator = ''
+bash_indicator = '\[bash\]'
+zsh_indicator = '\[zsh\]'
+unknown_indicator = '\[sh\]'
+format = '[$indicator]($style)'
 
 [username]
 format = '\[[$user]($style)\]'
