@@ -5,6 +5,7 @@ if test -z "$GPG_TTY"
   set -gx GPG_TTY "$(tty)"
 end
 
+# Path
 fish_add_path -g --path "$HOME/.local/bin"
 if test -d "$HOME/.local/share/pnpm"
   fish_add_path -g --path "$HOME/.local/share/pnpm"

@@ -22,7 +22,7 @@ shopt -s checkwinsize
 # Vi key bindings
 set -o vi
 
-# Editor shortcuts
+# Tools
 export EDITOR='nvim'
 alias e=nvim
 
@@ -42,7 +42,6 @@ then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-# Mise
 if (command -v mise >/dev/null)
 then
   eval "$(mise activate bash)"
