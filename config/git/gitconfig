@@ -26,7 +26,7 @@ stl = git stash list
 stp = git stash pop
 tag = tag -s
 
-review = "!f() { git fetch origin pull/$1/head:pr/$1; }; f"
+review = "!f() { git fetch upstream pull/$1/head:pr/$1; git checkout pr/$1; }; f"
 
 [branch]
 sort = -committerdate
@@ -71,6 +71,9 @@ updateRefs = true
 [rerere]
 enabled = true
 autoupdate = true
+
+[submodule]
+recurse = true
 
 [svn]
 rmdir = true
