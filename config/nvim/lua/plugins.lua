@@ -85,7 +85,10 @@ vim.pack.add({
   gh('andrewyazura/neotest-gradle'),
 
   -- rust support
-  gh('mrcjkb/rustaceanvim')
+  gh('mrcjkb/rustaceanvim'),
+
+  -- python support
+  gh('nvim-neotest/neotest-python')
 })
 
 vim.api.nvim_create_user_command('PackUpdate', function()

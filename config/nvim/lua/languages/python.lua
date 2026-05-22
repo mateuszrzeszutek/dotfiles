@@ -17,6 +17,7 @@ end
 
 return {
   treesitter = { 'python' },
-  lsp = {},
+  lsp = { 'pyright' },
+  neotest = require('neotest-python'),
   setup = setup
 }

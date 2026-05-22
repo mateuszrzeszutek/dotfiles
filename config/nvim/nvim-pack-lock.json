@@ -44,6 +44,10 @@
       "rev": "5845d76ab22641770f7b2cdd5be49b93a822d0b6",
       "src": "https://github.com/andrewyazura/neotest-gradle"
     },
+    "neotest-python": {
+      "rev": "e6df4f1892f6137f58135917db24d1655937d831",
+      "src": "https://github.com/nvim-neotest/neotest-python"
+    },
     "neovim-ayu": {
       "rev": "e5a9f0fa2918d6b5f57c21b3ac014314ee5e41c8",
       "src": "https://github.com/Shatur/neovim-ayu"
