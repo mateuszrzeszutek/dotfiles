@@ -7,6 +7,7 @@ local languages = {
   require('languages.nvim'),
   require('languages.python'),
   require('languages.rust'),
+  require('languages.terraform'),
 }
 
 -- better language parsing/highlights/formatting
