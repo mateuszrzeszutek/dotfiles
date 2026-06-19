@@ -1,5 +1,5 @@
 function __venv_dir
-  if git rev-parse --show-toplevel 2>/dev/null
+  if git rev-parse --show-toplevel 2>&1 >/dev/null
     set dir (git rev-parse --show-toplevel)
   else
     set dir (pwd)
