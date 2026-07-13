@@ -88,7 +88,10 @@ vim.pack.add({
   gh('mrcjkb/rustaceanvim'),
 
   -- python support
-  gh('nvim-neotest/neotest-python')
+  gh('nvim-neotest/neotest-python'),
+
+  -- go support
+  gh('nvim-neotest/neotest-go'),
 })
 
 vim.api.nvim_create_user_command('PackUpdate', function()

@@ -40,6 +40,10 @@
       "rev": "fd0b7986dd0ae04e38ec7dc0c78a432e3820839c",
       "src": "https://github.com/nvim-neotest/neotest"
     },
+    "neotest-go": {
+      "rev": "59b50505053f9c45a9febb79e11a56206c3e3901",
+      "src": "https://github.com/nvim-neotest/neotest-go"
+    },
     "neotest-gradle": {
       "rev": "5845d76ab22641770f7b2cdd5be49b93a822d0b6",
       "src": "https://github.com/andrewyazura/neotest-gradle"

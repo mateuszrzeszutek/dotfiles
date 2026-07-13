@@ -27,5 +27,6 @@ end
 return {
   treesitter = { 'go' },
   lsp = { 'gopls' },
+  neotest = require('neotest-go'),
   setup = setup
 }
