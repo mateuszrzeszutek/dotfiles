@@ -19,7 +19,13 @@ install_tools() {
   mise install
 }
 
+activate_mise() {
+  echo_yellow ">>> Activating mise for other install scripts ..."
+  eval "$(mise activate bash)"
+}
+
 install_mise
 configure_mise
 install_tools
+activate_mise
 

@@ -6,5 +6,6 @@ node = "latest"
 npm = "latest"
 rust = "latest"
 rust-analyzer = "latest"
+rtk = "latest" # Token optimizer for coding agents
 tree-sitter = "latest"
 usage = "latest"
