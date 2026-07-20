@@ -67,7 +67,7 @@ function __linux_bwrap
   set -a bwrap_args --bind "$workspace" /workspace
   set -a bwrap_args --chdir /workspace
 
-  bwrap $bwrap_args "$argv"
+  bwrap $bwrap_args $argv
 end
 
 function jail --description "Runs a command in a sandbox"

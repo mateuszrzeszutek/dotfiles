@@ -1,6 +1,5 @@
-function __update_kitty
-  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin \
-    launch=n
+function __update_ollama
+  curl -fsSL https://ollama.com/install.sh | sh
 end
 
 function __has -a executable
@@ -11,8 +10,8 @@ function sysupdate --description "Update all system packages"
   __has brew    && brew update && brew outdated && brew upgrade
   __has dnf     && sudo dnf upgrade -y
   __has flatpak && flatpak update -y
-  __has kitty   && test "$(uname)" = "Linux" && __update_kitty
   __has mise    && mise upgrade
+  __has ollama  && __update_ollama
   __has pacman  && sudo pacman --noconfirm -Syu
-  __has ya      && ya pkg upgrade
+  __has pi      && pi update --all
 end
